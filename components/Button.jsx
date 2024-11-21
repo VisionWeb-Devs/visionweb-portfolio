@@ -75,7 +75,7 @@ const Button = ({ text }) => {
         {text}
       </span>
       <span ref={arrow} className="text-main ml-1">
-        {" ->"}
+        {"->"}
       </span>
     </button>
   );

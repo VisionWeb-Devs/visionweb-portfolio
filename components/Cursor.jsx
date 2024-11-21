@@ -38,8 +38,7 @@ const Cursor = () => {
     document.addEventListener("scroll", (e) => {
       gsap.to(cursorRef.current, {
         top: window.scrollY,
-        duration: 0.1,
-        ease: "power2.out",
+        duration: 0,
       });
     });
 
