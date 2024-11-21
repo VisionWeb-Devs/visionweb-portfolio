@@ -20,21 +20,34 @@ const Cursor = () => {
         ease: "power2.out",
       }
     );
-
-    document.addEventListener("mousemove", (e) => {
-      cursorRef.current.style.left = e.pageX + "px";
-      cursorRef.current.style.top = e.pageY + "px";
-    });
     document.addEventListener("mousedown", () => {
       tl.play();
     });
     document.addEventListener("mouseup", () => {
       tl.reverse();
     });
+
+    document.addEventListener("mousemove", (e) => {
+      gsap.to(cursorRef.current, {
+        x: e.x,
+        y: e.y,
+        duration: 0,
+      });
+    });
+
+    document.addEventListener("scroll", (e) => {
+      gsap.to(cursorRef.current, {
+        top: window.scrollY,
+        duration: 0.1,
+        ease: "power2.out",
+      });
+    });
+
     return () => {
       document.removeEventListener("mousemove", () => {});
       document.removeEventListener("mousedown", () => {});
       document.removeEventListener("mouseup", () => {});
+      document.removeEventListener("scroll", () => {});
     };
   }, []);
   return (
