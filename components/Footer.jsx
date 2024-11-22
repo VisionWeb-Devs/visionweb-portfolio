@@ -25,8 +25,8 @@ const Footer = () => {
           <div
             className={`${roboto.className}  text-xl tracking-wider text-end`}
           >
-            Let's Connect! Reach out and let the conversation begin. Your <br />{" "}
-            thoughts, questions, and ideas are always welcome
+            Let&apos;s Connect! Reach out and let the conversation begin. Your{" "}
+            <br /> thoughts, questions, and ideas are always welcome
           </div>
         </div>
         <div
