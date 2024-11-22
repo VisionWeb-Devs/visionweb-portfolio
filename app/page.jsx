@@ -1,7 +1,7 @@
-import ContactUs from "@/components/ContactUs";
+import Tiers from "@/components/Tiers";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import MeetTheTeam from "@/components/meetTheTeam";
+import MeetTheTeam from "@/components/MeetTheTeam";
 import OurProjects from "@/components/OurProjects";
 import WhatWeDo from "@/components/WhatWeDo";
 
@@ -13,7 +13,7 @@ const Home = () => {
         <WhatWeDo />
         <OurProjects />
         <MeetTheTeam />
-        <ContactUs />
+        <Tiers />
         <Footer />
       </main>
     </div>
