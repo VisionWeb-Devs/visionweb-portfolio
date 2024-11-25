@@ -28,8 +28,7 @@ const WhatWeDoPoints = () => {
         delay: 0.3,
         scrollTrigger: {
           trigger: smallHeadding.current,
-          start: "top 80%",
-          end: "top 20%",
+          start: "bottom bottom",
           toggleActions: "play none none none",
         },
       }
@@ -49,8 +48,7 @@ const WhatWeDoPoints = () => {
         opacity: 1,
         scrollTrigger: {
           trigger: headding.current,
-          start: "top 80%",
-          end: "top 20%",
+          start: "bottom bottom",
           toggleActions: "play none none none",
         },
       }
@@ -70,8 +68,7 @@ const WhatWeDoPoints = () => {
         delay: 0.3,
         scrollTrigger: {
           trigger: list.current,
-          start: "top 80%",
-          end: "top 20%",
+          start: "bottom bottom",
           toggleActions: "play none none none",
         },
       }

@@ -93,8 +93,7 @@ const OurProjects = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: headding.current,
-        start: "top 80%",
-        end: "top 20%",
+        start: "bottom bottom",
         toggleActions: "play none none none",
       },
     });

@@ -13,8 +13,10 @@ const Home = () => {
         <WhatWeDo />
         <OurProjects />
         <MeetTheTeam />
-        <Tiers />
-        <Footer />
+        <div className="bg-main">
+          <Tiers />
+          <Footer />
+        </div>
       </main>
     </div>
   );
