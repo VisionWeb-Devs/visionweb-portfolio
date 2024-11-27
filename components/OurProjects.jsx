@@ -209,7 +209,10 @@ const OurProjects = () => {
           {/* <div className="h-screen w-fit bg-main text-[#E9E8E7] flex"> */}
           <div className="relative h-screen w-screen bg-main text-[#E9E8E7] flex flex-col items-center justify-center gap-24 xl:px-36 px-12 py-36">
             <span className="flex flex-col items-center">
-              <span ref={headding} className="text-5xl font-semibold">
+              <span
+                ref={headding}
+                className="xl:text-5xl text-xl text-center font-semibold"
+              >
                 <span ref={what}></span>
                 <span ref={seeourprojects}></span>
                 {/* What?! want to see some of our projects? */}
@@ -217,7 +220,7 @@ const OurProjects = () => {
                   |
                 </span>
               </span>
-              <span className="text-4xl font-medium">
+              <span className="xl:text-4xl text-lg font-medium">
                 <span ref={underheadding}></span>
                 {/* Alright here you go */}
                 <span ref={underheaddingCursor} className="font-normal">
@@ -225,7 +228,7 @@ const OurProjects = () => {
                 </span>
               </span>
             </span>
-            <span ref={paragraph} className="text-xl text-center ">
+            <span ref={paragraph} className="xl:text-xl text-center ">
               Our team have been working hard on these so <br /> no comments pls
             </span>
             <div

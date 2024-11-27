@@ -37,7 +37,7 @@ const Footer = () => {
           <div className="flex xl:flex-row flex-col xl:items-end gap-4 xl:gap-20">
             <ul className="flex flex-col gap-2">
               <a
-                href="https://www.instagram.com/visionwebdevs/"
+                href="https://www.instagram.com/visionweb.devs/"
                 target="_blank"
               >
                 <Link text={"INSTAGRAM"} />
@@ -55,7 +55,10 @@ const Footer = () => {
             </ul>
             <ul className="flex flex-col gap-2">
               {/* <Link text={"setif, Algeria"} /> */}
-              <Link text={"+213799902523"} />
+              {/* <Link text={"+213799902523"} /> */}
+              <a href="https://discord.gg/dgXrgJxdKs" target="_blank">
+                <Link text={"Discrod"} />
+              </a>
               <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@visionwebdevs.tech"
                 target="_blank"
