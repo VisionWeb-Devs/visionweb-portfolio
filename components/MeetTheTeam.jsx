@@ -114,6 +114,7 @@ const MeetTheTeam = () => {
         });
       },
     });
+
     return () => {
       // Cleanup ScrollTriggers on component unmount
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -145,16 +146,13 @@ const MeetTheTeam = () => {
         {whyUs.map((item, index) => (
           <WhyUsCard
             key={item.title}
-            hidden={index === 0}
+            absolute={index !== 0}
             title={item.title}
             description={item.description}
           />
         ))}
       </div>
-      <div
-        ref={container}
-        className="xl:hidden overflow-hidden flex flex-col gap-10 relative"
-      >
+      <div className="xl:hidden overflow-hidden flex flex-col relative">
         {whyUs.map((item, index) => (
           <WhyUsCard
             key={item.title}
