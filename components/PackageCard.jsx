@@ -21,7 +21,7 @@ const PackageCard = ({
       <div className="flex flex-col gap-[24px] xl:gap-[32px] px-6 py-8 xl:px-8 xl:py-10">
         <div className="flex flex-col gap-[16px] xl:gap-[32px]">
           <div>
-            <div className="xl:text-8xl text-5xl">€{price}</div>
+            <div className="xl:text-5xl text-3xl">{price}</div>
             <div className="opacity-60 xl:text-base text-sm">Per website</div>
           </div>
           <div className="opacity-60  xl:text-base text-sm">{description}</div>

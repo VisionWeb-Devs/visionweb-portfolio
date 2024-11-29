@@ -3,45 +3,36 @@ import PackageCard from "./PackageCard";
 
 const packages = [
   {
-    name: "Starter",
-    price: "300",
+    name: "Portfolio Website",
+    price: "+20,000 DZD",
     description:
-      "For individuals looking to showcase their work and build an online presence.",
+      "Perfect for professionals and businesses looking to establish a credible online presence. Showcase your expertise and brand identity with a sleek, professional portfolio.",
     what_is_included: [
-      "A ready to use portfolio website",
-      "over 5 templates to choose from",
-      "A custom domain",
-      "24/7 customer support",
-      "Fast delivery",
+      "A design crafted to align seamlessly with your brand’s identity.",
+      "Responsive and mobile-friendly to impress visitors on any device.",
+      "Built with SEO-friendly practices to improve discoverability.",
     ],
   },
   {
-    name: "Pro",
-    price: "500",
+    name: "E-commerce Template",
+    price: "+40,000 DZD",
     description:
-      "For professionals and small businesses looking to grow their online presence.",
+      " Ideal for entrepreneurs and businesses ready to launch their online store and boost sales. Transform your vision into a functional and engaging shopping experience.",
     what_is_included: [
-      "A ready to use portfolio website",
-      "over 10 templates to choose from",
-      "A custom domain",
-      "24/7 customer support",
-      "Fast delivery",
-      "SEO optimization",
+      "A fully operational e-commerce system with shopping cart and category management.",
+      "An intuitive admin panel to track, manage, and fulfill orders effortlessly.",
+      "A responsive design to attract and convert visitors on both desktop and mobile.",
     ],
   },
   {
-    name: "Enterprise",
-    price: "1000",
+    name: "Custom Website",
+    price: "Contact for Pricing",
     description:
-      "For businesses looking to scale their online presence and reach a wider audience.",
+      "For businesses and individuals seeking a truly unique online presence that stands out from the competition. Let us bring your vision to life with a website that combines cutting-edge design and functionality.",
     what_is_included: [
-      "A ready to use portfolio website",
-      "over 15 templates to choose from",
-      "A custom domain",
-      "24/7 customer support",
-      "Fast delivery",
-      "SEO optimization",
-      "Social media integration",
+      "A one-of-a-kind design with interactive animations and custom features.",
+      "Fully tailored solutions to meet your business goals and audience needs.",
+      "Uncompromising attention to detail for a premium, high-quality result.",
     ],
   },
 ];

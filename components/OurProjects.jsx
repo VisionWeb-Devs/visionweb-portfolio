@@ -4,31 +4,33 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProjectCard from "./ProjectCard";
 import TextPlugin from "gsap/TextPlugin";
+import visionshopHome from "@/public/assets/projects/visionshop_home.png";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(TextPlugin);
 
 const projects = [
   {
-    name: "Project 1",
-    image: "https://via.placeholder.com/750",
-    description: "This is a project",
+    name: "Vision Shop",
+    image: visionshopHome.src,
+    description:
+      "This is the template for e-commerce website that sells clothing",
   },
-  {
-    name: "Project 2",
-    image: "https://via.placeholder.com/500x750",
-    description: "This is a project",
-  },
-  {
-    name: "Project 3",
-    image: "https://via.placeholder.com/500x800",
-    description: "This is a project",
-  },
-  {
-    name: "Project 4",
-    image: "https://via.placeholder.com/720x1280",
-    description: "This is a project",
-  },
+  // {
+  //   name: "Project 2",
+  //   image: "https://via.placeholder.com/500x750",
+  //   description: "This is a project",
+  // },
+  // {
+  //   name: "Project 3",
+  //   image: "https://via.placeholder.com/500x800",
+  //   description: "This is a project",
+  // },
+  // {
+  //   name: "Project 4",
+  //   image: "https://via.placeholder.com/720x1280",
+  //   description: "This is a project",
+  // },
 ];
 
 const OurProjects = () => {
@@ -69,7 +71,7 @@ const OurProjects = () => {
         scrollTrigger: {
           trigger: container.current,
           start: "top top",
-          end: () => `+=${horizontalContainer.current.scrollWidth - 1000}`,
+          end: `+=2000`,
           scrub: 0.6,
           pin: true,
           snap: {
@@ -204,7 +206,7 @@ const OurProjects = () => {
       <div ref={container}>
         <div
           ref={horizontalContainer}
-          className="overflow-x-hidden w-fit flex relative bg-main"
+          className="overflow-x-hidden w-[200vw] flex relative bg-main"
         >
           {/* <div className="h-screen w-fit bg-main text-[#E9E8E7] flex"> */}
           <div className="relative h-screen w-screen bg-main text-[#E9E8E7] flex flex-col items-center justify-center gap-24 xl:px-36 px-12 py-36">
@@ -240,7 +242,7 @@ const OurProjects = () => {
           </div>
           {/* <div className="flex items-end gap-[1000px] xl:px-36 px-12 py-36"></div> */}
           {/* </div> */}
-          <div className="h-screen w-fit bg-main text-[#E9E8E7] flex items-end gap-[1000px]   xl:px-36 px-12 py-36">
+          <div className="h-screen w-screen bg-main text-[#E9E8E7] flex items-end gap-[1000px] xl:px-36 px-12 py-36">
             {projects.map((project) => (
               <ProjectCard key={project.name} project={project} />
             ))}
