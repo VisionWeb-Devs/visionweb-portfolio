@@ -1,32 +1,19 @@
 import type { StaticImageData } from "next/image";
 
 /**
- * Content model.
+ * Local content types.
  *
- * These shapes currently back the hardcoded arrays in the section components.
- * They are declared here, separately from the components that render them, so
- * that the CMS integration can satisfy the same contracts without rewriting the
- * presentation layer.
+ * Projects and packages now come from Strapi and are typed in `types/strapi.ts`
+ * (wire format) and `types/view.ts` (presentation). What remains here is the
+ * content that has not moved yet, plus the shared surface token.
  */
 
-export type Project = {
-  name: string;
-  image: StaticImageData;
-  description: string;
-  /**
-   * The live URL for the project. Previously hardcoded into ProjectCard, which
-   * meant every project would have linked to the first one.
-   */
-  url: string;
-};
-
-export type Package = {
-  name: string;
-  price: string;
-  description: string;
-  what_is_included: string[];
-};
-
+/**
+ * NOTE: the "Why Us" items are still hardcoded in MeetTheTeam, and the copy is
+ * e-commerce/logistics placeholder text that was never replaced. Moving it to
+ * Strapi is deliberately deferred until the copy itself is rewritten, so the
+ * wrong content does not get migrated into the CMS and legitimised.
+ */
 export type WhyUsItem = {
   title: string;
   description: string;

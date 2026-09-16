@@ -9,20 +9,14 @@ import {
   type Variants,
 } from "motion/react";
 import ProjectCard from "./ProjectCard";
-import visionshopHome from "@/public/assets/projects/visionshop_home.png";
-import type { Project } from "@/types/content";
+import type { ProjectView } from "@/types/view";
 
-const projects: Project[] = [
-  {
-    name: "Vision Shop",
-    image: visionshopHome,
-    description:
-      "This is the template for e-commerce website that sells clothing",
-    url: "https://visionshop.netlify.app/",
-  },
-];
 
-const OurProjects = () => {
+type OurProjectsProps = {
+  projects: ProjectView[];
+};
+
+const OurProjects = ({ projects }: OurProjectsProps) => {
   const reduceMotion = useReducedMotion();
   const container = useRef<HTMLElement>(null);
 
@@ -124,7 +118,7 @@ const OurProjects = () => {
   const gallery = (
     <div className="h-screen w-screen shrink-0 bg-ink text-paper flex items-end gap-24 xl:px-36 px-12 py-36">
       {projects.map((project) => (
-        <ProjectCard key={project.name} project={project} />
+        <ProjectCard key={project.id} project={project} />
       ))}
     </div>
   );
