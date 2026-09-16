@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_labels",
+  "info": {
+    "displayName": "Label",
+    "description": "A single free-text entry, used for repeatable lists such as a tech stack or a feature list."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
