@@ -5,7 +5,7 @@ import WhatWeDoPoints from "./WhatWeDoPoints";
 
 const WhatWeDo = () => {
   return (
-    <div className=" bg-paper text-ink xl:px-36 px-12 py-36 flex flex-col xl:flex-row gap-6 xl:gap-0 justify-between items-center">
+    <section id="services" className=" bg-paper text-ink xl:px-36 px-12 py-36 flex flex-col xl:flex-row gap-6 xl:gap-0 justify-between items-center">
       <WhatWeDoPoints />
       <div className=" h-fit select-none">
         <Image
@@ -15,7 +15,7 @@ const WhatWeDo = () => {
           height={500}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

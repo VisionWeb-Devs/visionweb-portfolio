@@ -42,3 +42,21 @@
     cursor: auto;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Scrolling
+   --------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Keeps a section heading clear of the fixed header when jumped to by anchor. */
+[id] {
+  scroll-margin-top: 6rem;
+}

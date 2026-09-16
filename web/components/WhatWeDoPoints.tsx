@@ -45,7 +45,6 @@ const WhatWeDoPoints = () => {
       viewport={{ once: true, amount: 0.3 }}
       variants={container}
       className="flex flex-col gap-4 xl:gap-8"
-      id="whatwedo"
     >
       <span>
         <motion.p

@@ -8,7 +8,7 @@ import WhatWeDo from "@/components/WhatWeDo";
 const Home = () => {
   return (
     <div>
-      <main>
+      <main id="main">
         <Hero />
         <WhatWeDo />
         <OurProjectsSection />
