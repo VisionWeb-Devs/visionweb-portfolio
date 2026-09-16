@@ -1,6 +1,8 @@
 import React from "react";
 import BookNow from "./BookNow";
 import type { Surface } from "@/types/content";
+import type { Locale } from "@/i18n/config";
+import type { Messages } from "@/i18n";
 
 type PackageCardProps = {
   name: string;
@@ -9,6 +11,8 @@ type PackageCardProps = {
   description: string;
   features: string[];
   surface: Surface;
+  locale: Locale;
+  messages: Messages["pricing"];
 };
 
 const PackageCard = ({
@@ -17,6 +21,8 @@ const PackageCard = ({
   description,
   features,
   surface,
+  locale,
+  messages,
 }: PackageCardProps) => {
   const skin =
     surface === "ink"
@@ -33,13 +39,15 @@ const PackageCard = ({
         <div className="flex flex-col gap-[16px] xl:gap-[32px]">
           <div>
             <div className="xl:text-5xl text-3xl">{priceLabel}</div>
-            <div className="opacity-60 xl:text-base text-sm">Per website</div>
+            <div className="opacity-60 xl:text-base text-sm">
+              {messages.perWebsite}
+            </div>
           </div>
           <div className="opacity-60  xl:text-base text-sm">{description}</div>
         </div>
-        <BookNow surface={surface} />
+        <BookNow surface={surface} locale={locale} label={messages.bookNow} />
         <ul className="flex flex-col gap-[8px]  xl:text-base text-sm">
-          <li className="opacity-60 list-none">What is included:</li>
+          <li className="opacity-60 list-none">{messages.included}</li>
           {features.map((feature) => (
             <li key={feature} className="flex gap-2 list-none">
               <span className="opacity-60 font-normal ">&#10003;</span>

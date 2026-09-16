@@ -10,13 +10,17 @@ import {
 } from "motion/react";
 import ProjectCard from "./ProjectCard";
 import type { ProjectView } from "@/types/view";
+import type { Locale } from "@/i18n/config";
+import type { Messages } from "@/i18n";
 
 
 type OurProjectsProps = {
   projects: ProjectView[];
+  locale: Locale;
+  messages: Messages["work"];
 };
 
-const OurProjects = ({ projects }: OurProjectsProps) => {
+const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
   const reduceMotion = useReducedMotion();
   const container = useRef<HTMLElement>(null);
 
@@ -63,7 +67,7 @@ const OurProjects = ({ projects }: OurProjectsProps) => {
               wipe. The GSAP version typed them in with TextPlugin from empty
               spans, so neither heading existed in the server-rendered HTML. */}
           <motion.span variants={wipe} className="inline-block">
-            What?! want to see some of our projects?
+            {messages.headingOne}
           </motion.span>
           <motion.span aria-hidden="true" className="font-normal" {...caret}>
             |
@@ -84,7 +88,7 @@ const OurProjects = ({ projects }: OurProjectsProps) => {
             }}
             className="inline-block"
           >
-            Alright here you go
+            {messages.headingTwo}
           </motion.span>
         </span>
       </motion.span>
@@ -95,7 +99,7 @@ const OurProjects = ({ projects }: OurProjectsProps) => {
         transition={{ duration: reduceMotion ? 0 : 0.8, delay: reduceMotion ? 0 : 2 }}
         className="xl:text-xl text-center"
       >
-        Our team have been working hard on these so <br /> no comments pls
+        {messages.intro}
       </motion.span>
       <motion.div
         aria-hidden="true"
@@ -118,7 +122,12 @@ const OurProjects = ({ projects }: OurProjectsProps) => {
   const gallery = (
     <div className="h-screen w-screen shrink-0 bg-ink text-paper flex items-end gap-24 xl:px-36 px-12 py-36">
       {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
+        <ProjectCard
+          key={project.id}
+          project={project}
+          locale={locale}
+          messages={messages}
+        />
       ))}
     </div>
   );

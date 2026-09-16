@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
+import type { Messages } from "@/i18n";
 
-const Hero = () => {
+const Hero = ({ messages }: { messages: Messages["hero"] }) => {
   const reduceMotion = useReducedMotion();
 
   const container: Variants = {
@@ -41,10 +42,10 @@ const Hero = () => {
       >
         <p className="opacity-85 flex flex-col items-center">
           <motion.span variants={line} className="block">
-            This is the vision web deviis
+            {messages.eyebrowOne}
           </motion.span>
           <motion.span variants={line} className="block">
-            Hey there
+            {messages.eyebrowTwo}
           </motion.span>
         </p>
         <h1 className="2xl:text-[10rem] md:text-9xl text-5xl leading-[0.85] select-none flex flex-col">
@@ -62,7 +63,7 @@ const Hero = () => {
         variants={fade}
         className="absolute bottom-16 left-1/2 -translate-x-1/2 font-[400] text-sm xl:text-base"
       >
-        SCROLL
+        {messages.scroll}
       </motion.div>
     </div>
   );

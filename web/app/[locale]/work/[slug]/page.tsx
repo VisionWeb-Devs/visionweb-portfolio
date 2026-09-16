@@ -2,6 +2,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { strapiFetch, strapiMediaUrl } from "@/lib/strapi";
+import { locales, isLocale } from "@/i18n/config";
+import { getMessages } from "@/i18n";
 import type { StrapiProject } from "@/types/strapi";
 import NextLink from "next/link";
 
@@ -14,13 +16,17 @@ import NextLink from "next/link";
  * turns a screenshot into evidence.
  */
 
-async function getProject(slug: string): Promise<StrapiProject | null> {
+async function getProject(
+  slug: string,
+  locale: string,
+): Promise<StrapiProject | null> {
   const { data } = await strapiFetch<StrapiProject[]>("projects", {
     query: {
       filters: { slug: { $eq: slug } },
       populate: { screenshots: true, techStack: true, features: true },
     },
     tags: ["project"],
+    locale,
   });
 
   return data[0] ?? null;
@@ -32,28 +38,29 @@ export async function generateStaticParams() {
     tags: ["project"],
   });
 
-  return data.map((project) => ({ slug: project.slug }));
+  // Every project, in every locale.
+  return locales.flatMap((locale) =>
+    data.map((project) => ({ locale, slug: project.slug })),
+  );
 }
 
 // Next 16: params is a Promise; synchronous access was removed.
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const project = await getProject(slug);
+}: PageProps<"/[locale]/work/[slug]">): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const project = await getProject(slug, locale);
 
   if (!project) return { title: "Project not found" };
 
   return {
     title: project.name,
     description: project.description,
-    alternates: { canonical: `/work/${project.slug}` },
+    alternates: { canonical: `/${locale}/work/${project.slug}` },
     openGraph: {
       title: project.name,
       description: project.description,
-      url: `/work/${project.slug}`,
+      url: `/${locale}/work/${project.slug}`,
       images: project.screenshots?.[0]
         ? [strapiMediaUrl(project.screenshots[0].url)]
         : undefined,
@@ -63,26 +70,30 @@ export async function generateMetadata({
 
 export default async function ProjectPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const project = await getProject(slug);
+}: PageProps<"/[locale]/work/[slug]">) {
+  const { slug, locale } = await params;
+  if (!isLocale(locale)) notFound();
 
+  const project = await getProject(slug, locale);
   if (!project) notFound();
 
+  const t = (await getMessages(locale)).work;
+
   const facts = [
-    project.client && { label: "Client", value: project.client },
-    project.industry && { label: "Industry", value: project.industry },
-    project.isInternal && { label: "Type", value: "Our own product" },
+    project.client && { label: t.client, value: project.client },
+    project.industry && { label: t.industry, value: project.industry },
+    project.isInternal && { label: t.type, value: t.ownProduct },
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
     <article className="bg-paper text-ink">
       <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-20 xl:pb-36 max-w-6xl mx-auto flex flex-col gap-16">
         <header className="flex flex-col gap-6">
-          <NextLink href="/#work" className="text-sm font-semibold opacity-60 w-fit">
-            ← Back to work
+          <NextLink
+            href={`/${locale}#work`}
+            className="text-sm font-semibold opacity-60 w-fit"
+          >
+            {t.backToWork}
           </NextLink>
           <h1 className="text-4xl xl:text-7xl font-semibold leading-[0.95]">
             {project.name}
@@ -111,7 +122,7 @@ export default async function ProjectPage({
               rel="noopener noreferrer"
               className="bg-ink text-paper rounded-full px-8 py-4 font-semibold w-fit mt-2"
             >
-              Visit the live site
+              {t.visitLive}
             </a>
           )}
         </header>
@@ -134,7 +145,7 @@ export default async function ProjectPage({
           <div className="grid md:grid-cols-2 gap-12">
             {project.problem && (
               <section className="flex flex-col gap-3">
-                <h2 className="text-2xl font-semibold">The problem</h2>
+                <h2 className="text-2xl font-semibold">{t.problem}</h2>
                 <p className="opacity-70 leading-relaxed whitespace-pre-line">
                   {project.problem}
                 </p>
@@ -142,7 +153,7 @@ export default async function ProjectPage({
             )}
             {project.solution && (
               <section className="flex flex-col gap-3">
-                <h2 className="text-2xl font-semibold">What we built</h2>
+                <h2 className="text-2xl font-semibold">{t.solution}</h2>
                 <p className="opacity-70 leading-relaxed whitespace-pre-line">
                   {project.solution}
                 </p>
@@ -153,7 +164,7 @@ export default async function ProjectPage({
 
         {project.features && project.features.length > 0 && (
           <section className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold">Features</h2>
+            <h2 className="text-2xl font-semibold">{t.features}</h2>
             <ul className="grid sm:grid-cols-2 gap-3">
               {project.features.map((feature) => (
                 <li key={feature.id} className="flex gap-3 opacity-80">
@@ -169,7 +180,7 @@ export default async function ProjectPage({
 
         {project.techStack && project.techStack.length > 0 && (
           <section className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold">Built with</h2>
+            <h2 className="text-2xl font-semibold">{t.builtWith}</h2>
             <ul className="flex flex-wrap gap-3">
               {project.techStack.map((tech) => (
                 <li
@@ -185,7 +196,7 @@ export default async function ProjectPage({
 
         {project.screenshots && project.screenshots.length > 1 && (
           <section className="flex flex-col gap-6">
-            <h2 className="text-2xl font-semibold">More screens</h2>
+            <h2 className="text-2xl font-semibold">{t.moreScreens}</h2>
             <div className="grid sm:grid-cols-2 gap-6">
               {project.screenshots.slice(1).map((shot) => (
                 <Image
@@ -203,10 +214,10 @@ export default async function ProjectPage({
         )}
 
         <NextLink
-          href="/#contact"
+          href={`/${locale}#contact`}
           className="bg-ink text-paper rounded-full px-8 py-4 font-semibold w-fit"
         >
-          Start a project like this
+          {t.startSimilar}
         </NextLink>
       </div>
     </article>

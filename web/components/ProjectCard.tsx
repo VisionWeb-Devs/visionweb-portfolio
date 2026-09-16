@@ -1,13 +1,17 @@
 import Image from "next/image";
 import Link from "./Link";
 import type { ProjectView } from "@/types/view";
+import type { Locale } from "@/i18n/config";
+import type { Messages } from "@/i18n";
 import NextLink from "next/link";
 
 type ProjectCardProps = {
   project: ProjectView;
+  locale: Locale;
+  messages: Messages["work"];
 };
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const ProjectCard = ({ project, locale, messages }: ProjectCardProps) => {
   const { slug, name, description, url, image } = project;
 
   return (
@@ -27,11 +31,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
       )}
       <div className="flex flex-col gap-1">
         <h3 className="text-xl font-medium text-nowrap">
-          <NextLink href={`/work/${slug}`}>{name}</NextLink>
+          <NextLink href={`/${locale}/work/${slug}`}>{name}</NextLink>
         </h3>
         <p className="text-sm text-nowrap">{description}</p>
-        <NextLink href={`/work/${slug}`} className="font-semibold">
-          <Link text={"Case study"} />
+        <NextLink href={`/${locale}/work/${slug}`} className="font-semibold">
+          <Link text={messages.caseStudy} />
         </NextLink>
         {url && (
           <a
@@ -40,7 +44,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             rel="noopener noreferrer"
             className="font-semibold"
           >
-            <Link text={"Visit"} />
+            <Link text={messages.visit} />
           </a>
         )}
       </div>

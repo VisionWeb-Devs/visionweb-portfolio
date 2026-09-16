@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import type { Messages } from "@/i18n";
 
 type FaqItem = {
   id: string;
@@ -13,7 +14,13 @@ type FaqItem = {
  * keyboard operable, screen-reader friendly and searchable in-page by default,
  * with no state to manage.
  */
-const FaqList = ({ items }: { items: FaqItem[] }) => {
+const FaqList = ({
+  items,
+  messages,
+}: {
+  items: FaqItem[];
+  messages: Messages["faq"];
+}) => {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -23,9 +30,9 @@ const FaqList = ({ items }: { items: FaqItem[] }) => {
     >
       <div className="flex flex-col gap-12 xl:gap-16 max-w-4xl">
         <div className="flex flex-col gap-4">
-          <p className="xl:text-lg font-semibold opacity-65">Questions</p>
+          <p className="xl:text-lg font-semibold opacity-65">{messages.eyebrow}</p>
           <h2 className="xl:text-5xl text-3xl font-semibold leading-tight">
-            Things clients usually ask
+            {messages.heading}
           </h2>
         </div>
 

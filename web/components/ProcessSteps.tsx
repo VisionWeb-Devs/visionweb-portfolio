@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
+import type { Messages } from "@/i18n";
 
 type Step = {
   id: string;
@@ -9,7 +10,13 @@ type Step = {
   duration: string | null;
 };
 
-const ProcessSteps = ({ steps }: { steps: Step[] }) => {
+const ProcessSteps = ({
+  steps,
+  messages,
+}: {
+  steps: Step[];
+  messages: Messages["process"];
+}) => {
   const reduceMotion = useReducedMotion();
 
   const container: Variants = {
@@ -39,9 +46,9 @@ const ProcessSteps = ({ steps }: { steps: Step[] }) => {
         className="flex flex-col gap-12 xl:gap-20"
       >
         <motion.div variants={item} className="flex flex-col gap-4">
-          <p className="xl:text-lg font-semibold opacity-65">How we work</p>
+          <p className="xl:text-lg font-semibold opacity-65">{messages.eyebrow}</p>
           <h2 className="xl:text-5xl text-3xl font-semibold leading-tight max-w-3xl">
-            A process you can follow, from first conversation to launch
+            {messages.heading}
           </h2>
         </motion.div>
 

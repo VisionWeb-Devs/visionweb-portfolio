@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/LegalPage";
 import { site } from "@/lib/site";
+import { isLocale } from "@/i18n/config";
+import { getMessages } from "@/i18n";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -18,9 +21,19 @@ export const metadata: Metadata = {
  * bracketed items below are facts only VisionWeb can supply. If the company
  * later adds analytics, embedded media or a newsletter, this must be updated.
  */
-export default function PrivacyPage() {
+export default async function PrivacyPage({ params }: PageProps<"/[locale]/privacy">) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const t = (await getMessages(locale)).footer;
+
   return (
-    <LegalPage title="Privacy Policy" updated="16 September 2026">
+    <LegalPage
+      title="Privacy Policy"
+      updated="16 September 2026"
+      locale={locale}
+      backLabel={t.backToSite}
+      updatedLabel={t.lastUpdated}
+    >
       <p>
         This policy explains what personal information {site.name} collects
         through this website, why we collect it, and what we do with it.

@@ -1,6 +1,8 @@
 "use server";
 
 import { headers } from "next/headers";
+import { getMessages } from "@/i18n";
+import { defaultLocale, isLocale } from "@/i18n/config";
 
 export type ContactState = {
   status: "idle" | "success" | "error";
@@ -37,10 +39,15 @@ export async function submitContact(
   _previous: ContactState,
   formData: FormData,
 ): Promise<ContactState> {
+  // The locale travels with the form so validation messages come back in the
+  // language the visitor is reading, rather than always in English.
+  const rawLocale = String(formData.get("locale") ?? "");
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+  const t = (await getMessages(locale)).contact;
   // Honeypot: a field hidden from people but filled in by naive bots. A silent
   // success is returned so the bot cannot tell it was rejected.
   if ((formData.get("website") as string | null)?.trim()) {
-    return { status: "success", message: "Thanks — we'll be in touch shortly." };
+    return { status: "success", message: t.success };
   }
 
   const headerList = await headers();
@@ -52,7 +59,7 @@ export async function submitContact(
   if (rateLimited(ip)) {
     return {
       status: "error",
-      message: "Too many messages from this connection. Please try again later.",
+      message: t.errors.rateLimited,
     };
   }
 
@@ -67,10 +74,9 @@ export async function submitContact(
     : "other";
 
   const fieldErrors: ContactState["fieldErrors"] = {};
-  if (name.length < 2) fieldErrors.name = "Please enter your name.";
-  if (!isEmail(email)) fieldErrors.email = "Please enter a valid email address.";
-  if (message.length < 10)
-    fieldErrors.message = "Please tell us a little more (at least 10 characters).";
+  if (name.length < 2) fieldErrors.name = t.errors.name;
+  if (!isEmail(email)) fieldErrors.email = t.errors.email;
+  if (message.length < 10) fieldErrors.message = t.errors.message;
 
   if (Object.keys(fieldErrors).length > 0) {
     return { status: "error", fieldErrors };
@@ -80,7 +86,7 @@ export async function submitContact(
   if (!strapiUrl) {
     return {
       status: "error",
-      message: "The contact form is not configured. Please email us directly.",
+      message: t.errors.unconfigured,
     };
   }
 
@@ -110,19 +116,16 @@ export async function submitContact(
       );
       return {
         status: "error",
-        message: "Something went wrong sending your message. Please try again.",
+        message: t.errors.generic,
       };
     }
   } catch (error) {
     console.error("Contact submission threw:", error);
     return {
       status: "error",
-      message: "Something went wrong sending your message. Please try again.",
+      message: t.errors.generic,
     };
   }
 
-  return {
-    status: "success",
-    message: "Thanks — we'll get back to you within 24 hours.",
-  };
+  return { status: "success", message: t.success };
 }

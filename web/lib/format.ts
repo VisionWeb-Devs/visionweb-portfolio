@@ -11,9 +11,10 @@ export function formatPrice(
   price: number | null,
   currency: string,
   priceIsFrom: boolean,
-  locale = "en",
+  locale: string,
+  quotedLabel: string,
 ): string {
-  if (price === null) return "Contact for Pricing";
+  if (price === null) return quotedLabel;
 
   const amount = new Intl.NumberFormat(locale, {
     maximumFractionDigits: 0,

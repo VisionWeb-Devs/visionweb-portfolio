@@ -48,5 +48,10 @@
       "repeatable": true,
       "component": "shared.label"
     }
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
   }
 }

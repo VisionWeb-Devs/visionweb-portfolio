@@ -1,11 +1,20 @@
 import { strapiFetch } from "@/lib/strapi";
 import type { StrapiFaq } from "@/types/strapi";
 import FaqList from "./FaqList";
+import type { Locale } from "@/i18n/config";
+import type { Messages } from "@/i18n";
 
-const Faq = async () => {
+const Faq = async ({
+  locale,
+  messages,
+}: {
+  locale: Locale;
+  messages: Messages["faq"];
+}) => {
   const { data } = await strapiFetch<StrapiFaq[]>("faqs", {
     query: { sort: "order:asc" },
     tags: ["faq"],
+    locale,
   });
 
   if (data.length === 0) return null;
@@ -13,6 +22,7 @@ const Faq = async () => {
   return (
     <>
       <FaqList
+        messages={messages}
         items={data.map((faq) => ({
           id: faq.documentId,
           question: faq.question,

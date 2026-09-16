@@ -2,15 +2,17 @@
 
 import Button from "@/components/Button";
 import { motion, useReducedMotion, type Variants } from "motion/react";
+import type { Locale } from "@/i18n/config";
+import type { Messages } from "@/i18n";
 
-const points = [
-  "We are a team of developers and designers who can help you achieve your goals.",
-  "We specialize in creating websites and web applications that are tailored to your needs.",
-  "Whether you need a simple website or a complex web application, we can help you.",
-  "We have experience working with clients from a variety of industries and can help you achieve your goals.",
-];
 
-const WhatWeDoPoints = () => {
+const WhatWeDoPoints = ({
+  locale,
+  messages,
+}: {
+  locale: Locale;
+  messages: Messages["services"];
+}) => {
   const reduceMotion = useReducedMotion();
 
   const container: Variants = {
@@ -51,24 +53,24 @@ const WhatWeDoPoints = () => {
           variants={riseIn}
           className="xl:text-lg font-semibold opacity-65"
         >
-          What we do
+          {messages.eyebrow}
         </motion.p>
         <motion.h2
           variants={riseIn}
           className="xl:text-5xl text-2xl font-semibold leading-tight"
         >
-          Want to take your buisness <br /> to the next level?
+          {messages.heading}
         </motion.h2>
       </span>
       <ul className="list-disc list-inside">
-        {points.map((point) => (
+        {messages.points.map((point) => (
           <motion.li key={point} variants={slideIn}>
             {point}
           </motion.li>
         ))}
       </ul>
       <motion.div variants={slideIn}>
-        <Button text={`See our work`} href="#work" />
+        <Button text={messages.cta} href={`/${locale}#work`} />
       </motion.div>
     </motion.div>
   );

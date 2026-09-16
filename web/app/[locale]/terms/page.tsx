@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/LegalPage";
 import { site } from "@/lib/site";
+import { isLocale } from "@/i18n/config";
+import { getMessages } from "@/i18n";
+import { notFound } from "next/navigation";
 import NextLink from "next/link";
 
 export const metadata: Metadata = {
@@ -19,9 +22,19 @@ export const metadata: Metadata = {
  * in that agreement, not on a public page, and must be drafted with a lawyer
  * under Algerian law.
  */
-export default function TermsPage() {
+export default async function TermsPage({ params }: PageProps<"/[locale]/terms">) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const t = (await getMessages(locale)).footer;
+
   return (
-    <LegalPage title="Terms of Service" updated="16 September 2026">
+    <LegalPage
+      title="Terms of Service"
+      updated="16 September 2026"
+      locale={locale}
+      backLabel={t.backToSite}
+      updatedLabel={t.lastUpdated}
+    >
       <p>
         These terms govern your use of this website. They do not govern project
         work — that is covered by a separate written agreement signed before any

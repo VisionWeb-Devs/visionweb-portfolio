@@ -2,6 +2,8 @@ import OurProjects from "./OurProjects";
 import { strapiFetch, strapiMediaUrl } from "@/lib/strapi";
 import type { StrapiProject } from "@/types/strapi";
 import type { ProjectView } from "@/types/view";
+import type { Locale } from "@/i18n/config";
+import type { Messages } from "@/i18n";
 
 /**
  * Server wrapper for the projects section.
@@ -10,7 +12,13 @@ import type { ProjectView } from "@/types/view";
  * animation, so it cannot fetch. This fetches, maps the Strapi payload to a
  * view model, and hands it down.
  */
-const OurProjectsSection = async () => {
+const OurProjectsSection = async ({
+  locale,
+  messages,
+}: {
+  locale: Locale;
+  messages: Messages["work"];
+}) => {
   const { data } = await strapiFetch<StrapiProject[]>("projects", {
     query: {
       sort: "order:asc",
@@ -19,6 +27,7 @@ const OurProjectsSection = async () => {
       populate: { screenshots: true },
     },
     tags: ["project"],
+    locale,
   });
 
   const projects: ProjectView[] = data.map((project) => {
@@ -42,7 +51,7 @@ const OurProjectsSection = async () => {
     };
   });
 
-  return <OurProjects projects={projects} />;
+  return <OurProjects projects={projects} locale={locale} messages={messages} />;
 };
 
 export default OurProjectsSection;

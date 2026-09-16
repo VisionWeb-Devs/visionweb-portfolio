@@ -3,6 +3,8 @@ import { Urbanist } from "next/font/google";
 import { Roboto } from "next/font/google";
 import Link from "@/components/Link";
 import ContactForm from "./ContactForm";
+import type { Locale } from "@/i18n/config";
+import type { Messages } from "@/i18n";
 import NextLink from "next/link";
 
 const urbanist = Urbanist({
@@ -16,7 +18,13 @@ const roboto = Roboto({
   display: "swap",
 });
 
-const Footer = () => {
+const Footer = ({
+  locale,
+  messages,
+}: {
+  locale: Locale;
+  messages: Messages;
+}) => {
   return (
     <footer id="contact" className="bg-ink px-4 xl:px-12 py-12">
       <div className="bg-paper rounded-3xl uppercase text-ink px-4 xl:px-12 xl:py-9 py-6 flex flex-col gap-8 xl:gap-20">
@@ -24,17 +32,16 @@ const Footer = () => {
           <div
             className={`self-center xl:text-[350px] text-[70px] xl:leading-[300px] font-bold`}
           >
-            CONTACT
+            {messages.contact.heading}
           </div>
           <div
             className={`${roboto.className}  xl:text-xl tracking-wider xl:text-end`}
           >
-            Let&apos;s Connect! Reach out and let the conversation begin. Your{" "}
-            <br /> thoughts, questions, and ideas are always welcome
+            {messages.contact.intro}
           </div>
         </div>
         <div className="max-w-3xl w-full self-center">
-          <ContactForm />
+          <ContactForm messages={messages.contact} locale={locale} />
         </div>
         <div
           className={`${urbanist.className} xl:text-xl text-lg font-bold flex xl:flex-row flex-col justify-between xl:items-end`}
@@ -78,11 +85,11 @@ const Footer = () => {
             </ul>
           </div>
           <div className="mt-6 xl:mt-0 flex flex-wrap items-end gap-x-4 gap-y-1">
-            <NextLink href="/privacy">
-              <Link text="Privacy" />
+            <NextLink href={`/${locale}/privacy`}>
+              <Link text={messages.footer.privacy} />
             </NextLink>
-            <NextLink href="/terms">
-              <Link text="Terms" />
+            <NextLink href={`/${locale}/terms`}>
+              <Link text={messages.footer.terms} />
             </NextLink>
             &copy; {new Date().getFullYear()} VisionWeb Devs.
             <a
