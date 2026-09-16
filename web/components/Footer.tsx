@@ -95,6 +95,9 @@ const Footer = ({
             </ul>
           </div>
           <div className="mt-6 xl:mt-0 flex flex-wrap items-end gap-x-4 gap-y-1">
+            <NextLink href={`/${locale}/partners`}>
+              <Link text={messages.partners.nav} />
+            </NextLink>
             <NextLink href={`/${locale}/privacy`}>
               <Link text={messages.footer.privacy} />
             </NextLink>

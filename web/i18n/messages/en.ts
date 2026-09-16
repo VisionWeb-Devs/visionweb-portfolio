@@ -102,6 +102,33 @@ const en = {
     },
     success: "Thanks — we'll get back to you within 24 hours.",
   },
+  partners: {
+    nav: "Partners",
+    title: "Partner Program",
+    tagline: "You refer. We deliver. You get paid.",
+    intro:
+      "If you work with businesses that need a website, bring them to us and earn a commission on every project we close. No quotas, no exclusivity, no cost to join.",
+    modelsHeading: "Two ways to partner",
+    referralTitle: "Referral partner",
+    referralPoints: [
+      "You pass us the client's contact.",
+      "We handle the quote, the project and the follow-up.",
+      "Nothing to do on your side after the introduction.",
+    ],
+    managingTitle: "Managing partner",
+    managingPoints: [
+      "You qualify the need and frame the brief.",
+      "You gather the content: logo, copy, photos.",
+      "You stay the client's point of contact alongside us.",
+    ],
+    ratesHeading: "Commission",
+    ratesBody:
+      "Commission is paid on every project we close, calculated on the project's base price excluding taxes and the items we include for free. Managing partners earn a higher rate than referrals. We send the full rate card directly — get in touch and we will share it.",
+    ctaHeading: "Interested?",
+    ctaBody:
+      "Tell us a little about who you work with and we will send you the rate card and answer any questions.",
+    cta: "Become a partner",
+  },
   footer: {
     privacy: "Privacy",
     terms: "Terms",

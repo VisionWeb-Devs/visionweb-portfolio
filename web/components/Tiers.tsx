@@ -36,7 +36,7 @@ const Tiers = async ({
   ]);
 
   return (
-    <section className=" bg-ink text-paper xl:px-36 px-12 xl:py-36 py-20 flex flex-col gap-16 xl:gap-24 min-h-screen">
+    <section id="pricing" className=" bg-ink text-paper xl:px-36 px-12 xl:py-36 py-20 flex flex-col gap-16 xl:gap-24 min-h-screen">
       <h2 className="text-4xl xl:text-5xl font-semibold">{messages.heading}</h2>
 
       <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">

@@ -116,6 +116,33 @@ const fr: Messages = {
     },
     success: "Merci — nous revenons vers vous sous 24 heures.",
   },
+  partners: {
+    nav: "Partenaires",
+    title: "Programme Partenaires",
+    tagline: "Vous recommandez. Nous livrons. Vous êtes payé.",
+    intro:
+      "Si vous travaillez avec des entreprises qui ont besoin d'un site, présentez-les-nous et touchez une commission sur chaque projet signé. Sans quota, sans exclusivité, sans frais d'entrée.",
+    modelsHeading: "Deux façons de travailler avec nous",
+    referralTitle: "Simple apporteur d'affaires",
+    referralPoints: [
+      "Vous nous transmettez le contact du client.",
+      "Nous gérons le devis, le projet et le suivi.",
+      "Aucun travail de votre côté après l'intro.",
+    ],
+    managingTitle: "Partenaire qui gère le client",
+    managingPoints: [
+      "Vous qualifiez le besoin et cadrez le brief.",
+      "Vous récupérez contenus, logo, textes, photos.",
+      "Vous restez l'interlocuteur du client avec nous.",
+    ],
+    ratesHeading: "Commission",
+    ratesBody:
+      "La commission est versée sur chaque projet signé, calculée sur le prix de base du projet, hors taxes et hors prestations offertes. Le partenaire qui gère le client touche un taux plus élevé que le simple apporteur. Nous transmettons le barème complet directement — contactez-nous et nous vous l'envoyons.",
+    ctaHeading: "Intéressé ?",
+    ctaBody:
+      "Dites-nous avec qui vous travaillez et nous vous enverrons le barème ainsi que les réponses à vos questions.",
+    cta: "Devenir partenaire",
+  },
   footer: {
     privacy: "Confidentialité",
     terms: "Conditions",
