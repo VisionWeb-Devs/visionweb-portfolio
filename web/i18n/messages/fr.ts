@@ -70,9 +70,11 @@ const fr: Messages = {
   },
   pricing: {
     heading: "Formules",
-    perWebsite: "Par site",
+    perWebsite: "Par projet",
     included: "Ce qui est inclus :",
-    bookNow: "Réserver",
+    timeline: "Délai",
+    quoteCta: "Devis gratuit",
+    bookNow: "Devis gratuit",
     contactForPricing: "Sur devis",
   },
   contact: {

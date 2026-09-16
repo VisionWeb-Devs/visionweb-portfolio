@@ -1,24 +1,27 @@
 /**
- * Formats a package price for display.
+ * Formats a package price range for display.
  *
- * Price arrives from Strapi as a number plus an ISO currency code rather than a
- * pre-rendered string like "+20,000 DZD", so the presentation — grouping,
- * separator, currency placement — is decided here and can vary by locale once
- * the site is localised. A null price means the tier is quoted rather than
+ * Prices arrive from Strapi as integers plus an ISO currency code rather than
+ * pre-rendered strings, so grouping and separators follow the reader's locale:
+ * English renders "15,000 – 50,000 DZD", French "15 000 – 50 000 DZD" with a
+ * narrow no-break space. A missing range means the tier is quoted rather than
  * listed.
  */
-export function formatPrice(
-  price: number | null,
+export function formatPriceRange(
+  min: number | null,
+  max: number | null,
   currency: string,
-  priceIsFrom: boolean,
   locale: string,
   quotedLabel: string,
 ): string {
-  if (price === null) return quotedLabel;
+  const format = (value: number) =>
+    new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(value);
 
-  const amount = new Intl.NumberFormat(locale, {
-    maximumFractionDigits: 0,
-  }).format(price);
+  if (min === null && max === null) return quotedLabel;
+  if (min !== null && max !== null && min !== max) {
+    return `${format(min)} – ${format(max)} ${currency}`;
+  }
 
-  return `${priceIsFrom ? "+" : ""}${amount} ${currency}`;
+  const single = (min ?? max) as number;
+  return `${format(single)} ${currency}`;
 }

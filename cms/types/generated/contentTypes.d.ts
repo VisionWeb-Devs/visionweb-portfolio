@@ -509,14 +509,18 @@ export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     answer: Schema.Attribute.Text & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'> &
-      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
     order: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
@@ -531,13 +535,18 @@ export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
 export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
   collectionName: 'packages';
   info: {
-    description: 'A pricing tier. Price is numeric with a separate currency so it can be formatted per locale rather than baked into a string.';
+    description: 'A service offering from the price list. Prices are a min-max range in minor-unit-free integers, with currency separate, so they can be formatted per locale.';
     displayName: 'Package';
     pluralName: 'packages';
     singularName: 'package';
   };
   options: {
     draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -550,22 +559,58 @@ export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
         minLength: 3;
       }> &
       Schema.Attribute.DefaultTo<'DZD'>;
-    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
     features: Schema.Attribute.Component<'shared.label', true>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::package.package'
-    > &
-      Schema.Attribute.Private;
+    >;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    price: Schema.Attribute.Decimal;
-    priceIsFrom: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<true>;
+    priceMax: Schema.Attribute.Integer;
+    priceMin: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    subtitle: Schema.Attribute.String;
+    timeline: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPricingInfoPricingInfo extends Struct.SingleTypeSchema {
+  collectionName: 'pricing_info';
+  info: {
+    description: 'Shared pricing copy: what every project includes, paid add-ons, and the small print.';
+    displayName: 'Pricing Info';
+    pluralName: 'pricing-infos';
+    singularName: 'pricing-info';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    addons: Schema.Attribute.Component<'shared.label', true>;
+    addonsHeading: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    disclaimer: Schema.Attribute.Text;
+    included: Schema.Attribute.Component<'shared.label', true>;
+    includedHeading: Schema.Attribute.String;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pricing-info.pricing-info'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -583,18 +628,22 @@ export interface ApiProcessStepProcessStep extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
     duration: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::process-step.process-step'
-    > &
-      Schema.Attribute.Private;
+    >;
     order: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
@@ -617,6 +666,11 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     client: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
@@ -629,12 +683,11 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<false>;
     liveUrl: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::project.project'
-    > &
-      Schema.Attribute.Private;
+    >;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     problem: Schema.Attribute.Text;
@@ -660,17 +713,21 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     bio: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::team-member.team-member'
-    > &
-      Schema.Attribute.Private;
+    >;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     photo: Schema.Attribute.Media<'images'>;
@@ -1196,6 +1253,7 @@ declare module '@strapi/strapi' {
       'api::contact-submission.contact-submission': ApiContactSubmissionContactSubmission;
       'api::faq.faq': ApiFaqFaq;
       'api::package.package': ApiPackagePackage;
+      'api::pricing-info.pricing-info': ApiPricingInfoPricingInfo;
       'api::process-step.process-step': ApiProcessStepProcessStep;
       'api::project.project': ApiProjectProject;
       'api::team-member.team-member': ApiTeamMemberTeamMember;

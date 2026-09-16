@@ -57,10 +57,12 @@ const en = {
   },
   pricing: {
     heading: "Packages",
-    perWebsite: "Per website",
+    perWebsite: "Per project",
     included: "What is included:",
-    bookNow: "Book Now",
-    contactForPricing: "Contact for Pricing",
+    timeline: "Timeline",
+    quoteCta: "Get a free quote",
+    bookNow: "Get a free quote",
+    contactForPricing: "On request",
   },
   contact: {
     heading: "CONTACT",

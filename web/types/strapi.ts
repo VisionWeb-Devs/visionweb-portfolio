@@ -78,16 +78,30 @@ export type StrapiProject = StrapiEntry & {
 export type StrapiPackage = StrapiEntry & {
   name: string;
   slug: string;
-  /** Numeric so it can be formatted per locale; never a pre-rendered string. */
-  price: number | null;
+  subtitle: string | null;
+  /**
+   * A min-max range in whole currency units. Numeric so it can be formatted per
+   * locale; the price list quotes a range per service, not a single figure.
+   */
+  priceMin: number | null;
+  priceMax: number | null;
   /** ISO 4217, e.g. "DZD". Explicit because expansion means multi-currency. */
   currency: string;
-  /** Renders the "+" prefix, i.e. "starting from", as data rather than text. */
-  priceIsFrom: boolean;
-  description: string;
+  /** Free text because the unit varies: "3–7 days" vs "2–4 weeks". */
+  timeline: string | null;
+  description: string | null;
   order: number;
   /** Optional: components are absent unless the request populates them. */
   features?: StrapiLabel[];
+};
+
+/** Shared pricing copy that applies to every tier. */
+export type StrapiPricingInfo = StrapiEntry & {
+  includedHeading: string | null;
+  included?: StrapiLabel[];
+  addonsHeading: string | null;
+  addons?: StrapiLabel[];
+  disclaimer: string | null;
 };
 
 export type StrapiTeamMember = StrapiEntry & {
@@ -119,6 +133,7 @@ export type StrapiFaq = StrapiEntry & {
  */
 export const STRAPI_TAGS = [
   "project",
+  "pricing-info",
   "package",
   "team-member",
   "process-step",
