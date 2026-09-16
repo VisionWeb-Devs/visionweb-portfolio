@@ -7,6 +7,7 @@ import { setLocale } from "@/app/actions/locale";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import NavLabel from "./Link";
 import { locales, localeNames, type Locale } from "@/i18n/config";
+import { useSectionTheme } from "@/hooks/useSectionTheme";
 import type { Messages } from "@/i18n";
 
 type HeaderProps = {
@@ -17,13 +18,19 @@ type HeaderProps = {
 /**
  * Site navigation.
  *
- * The bar is fixed and uses mix-blend-difference so one set of colours stays
- * legible across the alternating ink and paper bands, rather than detecting
- * which section sits behind it.
+ * The bar is fixed, and picks its colour from whichever band is behind it.
+ *
+ * It previously used mix-blend-difference, which reads well in principle but
+ * only blends against the backdrop within the same stacking context. Several
+ * sections create their own — `position: sticky` and Motion's transforms both
+ * do — and wherever the blend failed the bar rendered paper on paper and
+ * vanished. Reading the section under the bar and setting the colour outright
+ * works in every case, including on the standalone pages.
  */
 const Header = ({ locale, messages }: HeaderProps) => {
   const reduceMotion = useReducedMotion();
   const pathname = usePathname();
+  const sectionTheme = useSectionTheme();
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -68,6 +75,10 @@ const Header = ({ locale, messages }: HeaderProps) => {
     return segments.join("/") || `/${next}`;
   };
 
+  const onDark = open || sectionTheme === "dark";
+  const barText = onDark ? "text-paper" : "text-ink";
+  const barBar = onDark ? "bg-paper" : "bg-ink";
+
   const entrance = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
@@ -106,7 +117,7 @@ const Header = ({ locale, messages }: HeaderProps) => {
       <header className="fixed top-0 left-0 w-full z-40 pointer-events-none">
         <motion.div
           {...entrance}
-          className="mix-blend-difference text-paper pointer-events-auto xl:px-36 px-6 xl:py-10 py-5 flex items-center justify-between font-medium"
+          className={`${barText} pointer-events-auto xl:px-36 px-6 xl:py-10 py-5 flex items-center justify-between font-medium transition-colors duration-300`}
         >
           <NextLink
             href={`/${locale}`}
@@ -143,13 +154,13 @@ const Header = ({ locale, messages }: HeaderProps) => {
               aria-hidden="true"
               animate={open ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
               transition={{ duration: reduceMotion ? 0 : 0.2 }}
-              className="block h-[2px] w-7 bg-paper origin-center"
+              className={`block h-[2px] w-7 ${barBar} origin-center transition-colors duration-300`}
             />
             <motion.span
               aria-hidden="true"
               animate={open ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
               transition={{ duration: reduceMotion ? 0 : 0.2 }}
-              className="block h-[2px] w-7 bg-paper origin-center"
+              className={`block h-[2px] w-7 ${barBar} origin-center transition-colors duration-300`}
             />
           </button>
         </motion.div>

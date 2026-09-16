@@ -36,6 +36,7 @@ const ProcessSteps = ({
   return (
     <section
       id="process"
+      data-nav-theme="light"
       className="bg-paper text-ink xl:px-36 px-12 xl:py-36 py-20"
     >
       <motion.div

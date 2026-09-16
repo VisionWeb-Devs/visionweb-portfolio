@@ -27,8 +27,8 @@ const Footer = ({
   messages: Messages;
 }) => {
   return (
-    <footer id="contact" className="bg-ink px-4 xl:px-12 py-12">
-      <div className="bg-paper rounded-3xl uppercase text-ink px-4 xl:px-12 xl:py-9 py-6 flex flex-col gap-8 xl:gap-20">
+    <footer id="contact" data-nav-theme="dark" className="bg-ink px-4 xl:px-12 py-12">
+      <div data-nav-theme="light" className="bg-paper rounded-3xl uppercase text-ink px-4 xl:px-12 xl:py-9 py-6 flex flex-col gap-8 xl:gap-20">
         <div className="flex flex-col xl:items-end ">
           <div
             className={`self-center xl:text-[350px] text-[70px] xl:leading-[300px] font-bold`}

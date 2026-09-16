@@ -26,6 +26,7 @@ const FaqList = ({
   return (
     <section
       id="faq"
+      data-nav-theme="dark"
       className="bg-ink text-paper xl:px-36 px-12 xl:py-36 py-20"
     >
       <div className="flex flex-col gap-12 xl:gap-16 max-w-4xl">

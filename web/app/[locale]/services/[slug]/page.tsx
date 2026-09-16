@@ -97,7 +97,7 @@ export default async function ServicePage({
   const others = all.filter((entry) => entry.slug !== pkg.slug).slice(0, 3);
 
   return (
-    <article className="bg-paper text-ink min-h-screen">
+    <article data-nav-theme="light" className="bg-paper text-ink min-h-screen">
       <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-24 max-w-5xl mx-auto flex flex-col gap-16">
         <header className="flex flex-col gap-5">
           <NextLink

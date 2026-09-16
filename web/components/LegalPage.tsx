@@ -24,7 +24,7 @@ const LegalPage = ({
   backLabel: string;
   updatedLabel: string;
 }) => (
-  <article className="bg-paper text-ink min-h-screen">
+  <article data-nav-theme="light" className="bg-paper text-ink min-h-screen">
     <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-24 max-w-3xl mx-auto flex flex-col gap-8">
       <header className="flex flex-col gap-3">
         <NextLink

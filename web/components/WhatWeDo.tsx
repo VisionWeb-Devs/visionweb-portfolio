@@ -13,7 +13,7 @@ const WhatWeDo = ({
   messages: Messages["services"];
 }) => {
   return (
-    <section id="services" className=" bg-paper text-ink xl:px-36 px-12 py-36 flex flex-col xl:flex-row gap-6 xl:gap-0 justify-between items-center">
+    <section id="services" data-nav-theme="light" className=" bg-paper text-ink xl:px-36 px-12 py-36 flex flex-col xl:flex-row gap-6 xl:gap-0 justify-between items-center">
       <WhatWeDoPoints locale={locale} messages={messages} />
       <div className=" h-fit select-none">
         <Image

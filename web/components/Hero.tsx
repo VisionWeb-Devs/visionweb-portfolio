@@ -33,7 +33,10 @@ const Hero = ({ messages }: { messages: Messages["hero"] }) => {
   };
 
   return (
-    <div className="h-screen bg-paper text-ink flex justify-center items-center relative">
+    <div
+      data-nav-theme="light"
+      className="h-screen bg-paper text-ink flex justify-center items-center relative"
+    >
       <motion.div
         initial="hidden"
         animate="visible"

@@ -135,7 +135,7 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
   // Reduced motion: no scroll hijacking, the panels simply stack.
   if (reduceMotion) {
     return (
-      <section id="work" className="bg-ink">
+      <section id="work" data-nav-theme="dark" className="bg-ink">
         {intro}
         {gallery}
       </section>
@@ -143,7 +143,12 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
   }
 
   return (
-    <section id="work" ref={container} className="relative h-[300vh] bg-ink">
+    <section
+      id="work"
+      ref={container}
+      data-nav-theme="dark"
+      className="relative h-[300vh] bg-ink"
+    >
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div style={{ x }} className="flex h-screen w-[200vw]">
           {intro}

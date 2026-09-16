@@ -86,7 +86,7 @@ export default async function ProjectPage({
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
-    <article className="bg-paper text-ink">
+    <article data-nav-theme="light" className="bg-paper text-ink">
       <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-20 xl:pb-36 max-w-6xl mx-auto flex flex-col gap-16">
         <header className="flex flex-col gap-6">
           <NextLink
