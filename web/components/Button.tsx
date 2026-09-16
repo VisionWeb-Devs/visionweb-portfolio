@@ -4,6 +4,8 @@ import { motion, useReducedMotion } from "motion/react";
 
 type ButtonProps = {
   text: string;
+  /** When provided the control renders as a link. */
+  href?: string;
 };
 
 /**
@@ -14,14 +16,16 @@ type ButtonProps = {
  * settled and stayed wrong after a resize. Percentage transforms are
  * resolution-independent, so no measurement is needed.
  */
-const Button = ({ text }: ButtonProps) => {
+const Button = ({ text, href }: ButtonProps) => {
   const reduceMotion = useReducedMotion();
   const duration = reduceMotion ? 0 : 0.28;
   const roll = { duration, ease: "easeOut" } as const;
 
+  const Element = href ? motion.a : motion.button;
+
   return (
-    <motion.button
-      type="button"
+    <Element
+      {...(href ? { href } : { type: "button" as const })}
       initial="rest"
       animate="rest"
       whileHover="hover"
@@ -63,7 +67,7 @@ const Button = ({ text }: ButtonProps) => {
       >
         {"->"}
       </motion.span>
-    </motion.button>
+    </Element>
   );
 };
 

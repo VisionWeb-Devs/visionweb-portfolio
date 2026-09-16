@@ -68,7 +68,7 @@ const WhatWeDoPoints = () => {
         ))}
       </ul>
       <motion.div variants={slideIn}>
-        <Button text={`Our team`} />
+        <Button text={`See our work`} href="#work" />
       </motion.div>
     </motion.div>
   );

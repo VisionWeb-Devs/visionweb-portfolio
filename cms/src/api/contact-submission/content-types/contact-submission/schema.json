@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contact_submissions",
+  "info": {
+    "singularName": "contact-submission",
+    "pluralName": "contact-submissions",
+    "displayName": "Contact Submission",
+    "description": "An enquiry sent from the website contact form. Created by the site, read in the admin."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "company": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "projectType": {
+      "type": "enumeration",
+      "enum": ["portfolio", "ecommerce", "custom", "other"],
+      "default": "other"
+    },
+    "budget": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "message": {
+      "type": "text",
+      "required": true,
+      "maxLength": 5000
+    },
+    "handled": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

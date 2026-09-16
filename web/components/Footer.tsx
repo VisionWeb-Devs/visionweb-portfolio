@@ -2,6 +2,7 @@ import React from "react";
 import { Urbanist } from "next/font/google";
 import { Roboto } from "next/font/google";
 import Link from "@/components/Link";
+import ContactForm from "./ContactForm";
 
 const urbanist = Urbanist({
   weight: "700",
@@ -31,6 +32,9 @@ const Footer = () => {
             <br /> thoughts, questions, and ideas are always welcome
           </div>
         </div>
+        <div className="max-w-3xl w-full self-center">
+          <ContactForm />
+        </div>
         <div
           className={`${urbanist.className} xl:text-xl text-lg font-bold flex xl:flex-row flex-col justify-between xl:items-end`}
         >
@@ -39,6 +43,7 @@ const Footer = () => {
               <a
                 href="https://www.instagram.com/visionweb.devs/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <Link text={"INSTAGRAM"} />
               </a>
@@ -46,22 +51,26 @@ const Footer = () => {
               <a
                 href="https://www.linkedin.com/company/visionweb-devs/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <Link text={"LINKEDIN"} />
               </a>
-              <a href="https://www.github.com/VisionWeb-Devs" target="_blank">
+              <a href="https://www.github.com/VisionWeb-Devs" target="_blank"
+                rel="noopener noreferrer">
                 <Link text={"GITHUB"} />
               </a>
             </ul>
             <ul className="flex flex-col gap-2">
               {/* <Link text={"setif, Algeria"} /> */}
               {/* <Link text={"+213799902523"} /> */}
-              <a href="https://discord.gg/dgXrgJxdKs" target="_blank">
-                <Link text={"Discrod"} />
+              <a href="https://discord.gg/dgXrgJxdKs" target="_blank"
+                rel="noopener noreferrer">
+                <Link text={"Discord"} />
               </a>
               <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@visionwebdevs.tech"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <Link text={"contact@visionwebdevs.tech"} />
               </a>
@@ -72,6 +81,7 @@ const Footer = () => {
             <a
               href="https://www.visionwebdevs.tech/inspiration"
               target="_blank"
+                rel="noopener noreferrer"
             >
               <Link text="Inspiration" />
             </a>

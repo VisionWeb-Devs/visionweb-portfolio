@@ -10,12 +10,12 @@ const BookNow = ({ surface }: BookNowProps) => {
   const inverted = surface === "ink" ? "bg-paper text-ink" : "bg-ink text-paper";
 
   return (
-    <button
-      type="button"
-      className={`${inverted} w-full py-3 xl:py-5 rounded-full`}
+    <a
+      href="#contact"
+      className={`${inverted} w-full py-3 xl:py-5 rounded-full block text-center`}
     >
       Book Now
-    </button>
+    </a>
   );
 };
 
