@@ -5,6 +5,7 @@ import Link from "@/components/Link";
 import ContactForm from "./ContactForm";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n";
+import { site } from "@/lib/site";
 import NextLink from "next/link";
 
 const urbanist = Urbanist({
@@ -71,16 +72,25 @@ const Footer = ({
             <ul className="flex flex-col gap-2">
               {/* <Link text={"setif, Algeria"} /> */}
               {/* <Link text={"+213799902523"} /> */}
-              <a href="https://discord.gg/dgXrgJxdKs" target="_blank"
-                rel="noopener noreferrer">
-                <Link text={"Discord"} />
-              </a>
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@visionwebdevs.tech"
+                href={site.social.discord}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Link text={"contact@visionwebdevs.tech"} />
+                <Link text={"Discord"} />
+              </a>
+              <a href={`tel:${site.contact.phoneE164}`}>
+                <Link text={site.contact.phone} />
+              </a>
+              <a
+                href={site.contact.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Link text={"WhatsApp"} />
+              </a>
+              <a href={`mailto:${site.contact.email}`}>
+                <Link text={site.contact.email} />
               </a>
             </ul>
           </div>

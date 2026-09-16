@@ -25,6 +25,18 @@ export const site = {
    * footer, so it is treated as deliberately withheld rather than lost.
    */
   country: "Algeria",
+  /**
+   * Public contact details, as published on the company's own 2026 price
+   * sheet. The CEO's personal address (sadjedbougandoura@gmail.com) is
+   * deliberately not published here — inbound should reach the shared inbox.
+   */
+  contact: {
+    email: "visionwebdevs@gmail.com",
+    /** Displayed in local format; `phoneE164` is what tel:/wa.me links use. */
+    phone: "0675 49 48 80",
+    phoneE164: "+213675494880",
+    whatsapp: "https://wa.me/213675494880",
+  },
   social: {
     instagram: "https://www.instagram.com/visionweb.devs/",
     linkedin: "https://www.linkedin.com/company/visionweb-devs/",

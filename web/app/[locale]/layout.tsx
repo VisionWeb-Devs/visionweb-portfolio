@@ -94,6 +94,8 @@ export default async function RootLayout({
               description: site.description,
               url: SITE_URL,
               image: `${SITE_URL}/opengraph-image`,
+              email: site.contact.email,
+              telephone: site.contact.phoneE164,
               address: {
                 "@type": "PostalAddress",
                 addressCountry: site.country,
