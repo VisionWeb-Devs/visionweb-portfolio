@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "pricing_info",
+  "info": {
+    "singularName": "pricing-info",
+    "pluralName": "pricing-infos",
+    "displayName": "Pricing Info",
+    "description": "Shared pricing copy: what every project includes, paid add-ons, and the small print."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": { "i18n": { "localized": true } },
+  "attributes": {
+    "includedHeading": { "type": "string" },
+    "included": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.label"
+    },
+    "addonsHeading": { "type": "string" },
+    "addons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.label"
+    },
+    "disclaimer": { "type": "text" }
+  }
+}

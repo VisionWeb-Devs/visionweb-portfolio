@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+
+   The brand runs on exactly two colours. `paper` was previously written as the
+   literal `#E9E8E7` in eight separate files; it is a token now so it can only
+   be changed in one place.
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #121212;
+  --color-paper: #e9e8e7;
+}
+
+*::selection {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ---------------------------------------------------------------------------
+   Custom cursor
+
+   The native cursor is hidden under exactly the same condition that mounts the
+   custom one: a fine pointer. The previous rule hid it globally and restored it
+   only below 768px, while the custom cursor rendered only from 1280px up, so
+   769px–1279px had no visible pointer at all. Binding both to `pointer: fine`
+   makes that mismatch structurally impossible.
+   --------------------------------------------------------------------------- */
+@media (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none;
+  }
+}
+
+/* Anyone who asks for reduced motion gets the native cursor back. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    cursor: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scrolling
+   --------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Keeps a section heading clear of the fixed header when jumped to by anchor. */
+[id] {
+  scroll-margin-top: 6rem;
+}
