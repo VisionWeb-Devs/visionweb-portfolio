@@ -62,7 +62,11 @@ export type StrapiProject = StrapiEntry & {
   client: string | null;
   industry: string | null;
   description: string;
+  /** Long-form case-study fields; optional until written. */
+  problem: string | null;
+  solution: string | null;
   liveUrl: string | null;
+  order: number;
   /** True for our own products (Vision Shop), false for client work. */
   isInternal: boolean;
   /** Optional: absent unless the request populates them. */
@@ -95,10 +99,29 @@ export type StrapiTeamMember = StrapiEntry & {
   order: number;
 };
 
+export type StrapiProcessStep = StrapiEntry & {
+  title: string;
+  description: string;
+  duration: string | null;
+  order: number;
+};
+
+export type StrapiFaq = StrapiEntry & {
+  question: string;
+  answer: string;
+  order: number;
+};
+
 /**
  * Cache tags. These deliberately match Strapi's webhook `model` values, so the
  * revalidation handler can map a webhook straight onto a tag with no lookup
  * table to keep in sync.
  */
-export const STRAPI_TAGS = ["project", "package", "team-member"] as const;
+export const STRAPI_TAGS = [
+  "project",
+  "package",
+  "team-member",
+  "process-step",
+  "faq",
+] as const;
 export type StrapiTag = (typeof STRAPI_TAGS)[number];

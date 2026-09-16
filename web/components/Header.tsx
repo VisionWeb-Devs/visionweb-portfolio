@@ -4,10 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import NavLabel from "./Link";
 
+// Kept to five: every extra item costs scannability, and Why Us and the FAQ
+// are both reachable by scrolling from the sections that precede them.
 const links = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
-  { label: "Why Us", href: "#why-us" },
+  { label: "Process", href: "#process" },
   { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
 ];

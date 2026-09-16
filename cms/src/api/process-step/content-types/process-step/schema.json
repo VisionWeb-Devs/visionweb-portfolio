@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "process_steps",
+  "info": {
+    "singularName": "process-step",
+    "pluralName": "process-steps",
+    "displayName": "Process Step",
+    "description": "One stage of how VisionWeb works with a client, shown in order."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "description": { "type": "text", "required": true },
+    "duration": { "type": "string" },
+    "order": { "type": "integer", "default": 0, "required": true }
+  }
+}

@@ -3,6 +3,7 @@ import { Urbanist } from "next/font/google";
 import { Roboto } from "next/font/google";
 import Link from "@/components/Link";
 import ContactForm from "./ContactForm";
+import NextLink from "next/link";
 
 const urbanist = Urbanist({
   weight: "700",
@@ -76,7 +77,13 @@ const Footer = () => {
               </a>
             </ul>
           </div>
-          <div className="mt-6 xl:mt-0 flex gap-1">
+          <div className="mt-6 xl:mt-0 flex flex-wrap items-end gap-x-4 gap-y-1">
+            <NextLink href="/privacy">
+              <Link text="Privacy" />
+            </NextLink>
+            <NextLink href="/terms">
+              <Link text="Terms" />
+            </NextLink>
             &copy; {new Date().getFullYear()} VisionWeb Devs.
             <a
               href="https://www.visionwebdevs.tech/inspiration"

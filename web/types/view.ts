@@ -15,6 +15,7 @@ export type ProjectImageView = {
 
 export type ProjectView = {
   id: string;
+  slug: string;
   name: string;
   description: string;
   url: string | null;

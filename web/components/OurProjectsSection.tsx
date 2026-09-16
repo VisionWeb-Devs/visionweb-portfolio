@@ -26,6 +26,7 @@ const OurProjectsSection = async () => {
 
     return {
       id: project.documentId,
+      slug: project.slug,
       name: project.name,
       description: project.description,
       url: project.liveUrl,
