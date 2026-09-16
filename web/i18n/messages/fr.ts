@@ -75,6 +75,11 @@ const fr: Messages = {
     timeline: "Délai",
     quoteCta: "Devis gratuit",
     bookNow: "Devis gratuit",
+    detailIntro: "Ce que cela comprend",
+    otherPackages: "Autres formules",
+    allPackages: "← Toutes les formules",
+    viewDetails: "Voir le détail",
+    startingAt: "Prix indicatif",
     contactForPricing: "Sur devis",
   },
   contact: {

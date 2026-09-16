@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { strapiFetch } from "@/lib/strapi";
-import type { StrapiProject } from "@/types/strapi";
+import type { StrapiPackage, StrapiProject } from "@/types/strapi";
 import { locales, defaultLocale } from "@/i18n/config";
 
 /**
@@ -9,10 +9,16 @@ import { locales, defaultLocale } from "@/i18n/config";
  * treat the translations as the same page rather than duplicates.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { data: projects } = await strapiFetch<StrapiProject[]>("projects", {
-    query: { fields: ["slug", "updatedAt"] },
-    tags: ["project"],
-  });
+  const [{ data: projects }, { data: packages }] = await Promise.all([
+    strapiFetch<StrapiProject[]>("projects", {
+      query: { fields: ["slug", "updatedAt"] },
+      tags: ["project"],
+    }),
+    strapiFetch<StrapiPackage[]>("packages", {
+      query: { fields: ["slug", "updatedAt"] },
+      tags: ["package"],
+    }),
+  ]);
 
   const paths = [
     { path: "", priority: 1, changeFrequency: "monthly" as const },
@@ -21,6 +27,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
       changeFrequency: "monthly" as const,
       lastModified: new Date(project.updatedAt),
+    })),
+    ...packages.map((pkg) => ({
+      path: `/services/${pkg.slug}`,
+      priority: 0.7,
+      changeFrequency: "monthly" as const,
+      lastModified: new Date(pkg.updatedAt),
     })),
     { path: "/partners", priority: 0.6, changeFrequency: "yearly" as const },
     { path: "/privacy", priority: 0.3, changeFrequency: "yearly" as const },

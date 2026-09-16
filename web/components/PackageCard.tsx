@@ -1,4 +1,5 @@
 import React from "react";
+import NextLink from "next/link";
 import BookNow from "./BookNow";
 import type { Surface } from "@/types/content";
 import type { Locale } from "@/i18n/config";
@@ -6,6 +7,7 @@ import type { Messages } from "@/i18n";
 
 type PackageCardProps = {
   name: string;
+  slug: string;
   subtitle: string | null;
   timeline: string | null;
   /** Already formatted for display; see lib/format.ts. */
@@ -16,8 +18,17 @@ type PackageCardProps = {
   messages: Messages["pricing"];
 };
 
+/**
+ * A pricing tier.
+ *
+ * The whole card is clickable via a stretched link: the title anchor carries an
+ * ::after that covers the card, so the large target does not require nesting
+ * the quote button inside another anchor, which would be invalid HTML. The
+ * button sits above that overlay and keeps its own destination.
+ */
 const PackageCard = ({
   name,
+  slug,
   subtitle,
   timeline,
   priceLabel,
@@ -33,10 +44,17 @@ const PackageCard = ({
 
   return (
     <div
-      className={`${skin} rounded-2xl border flex flex-col font-semibold h-full`}
+      className={`${skin} group relative rounded-2xl border flex flex-col font-semibold h-full transition-transform duration-200 hover:-translate-y-1 focus-within:-translate-y-1`}
     >
       <div className="px-8 py-5">
-        <div className="text-xl">{name}</div>
+        <h3 className="text-xl">
+          <NextLink
+            href={`/${locale}/services/${slug}`}
+            className="outline-none after:absolute after:inset-0 after:rounded-2xl focus-visible:after:ring-2 focus-visible:after:ring-current"
+          >
+            {name}
+          </NextLink>
+        </h3>
         {subtitle && (
           <div className="text-sm font-normal opacity-60 mt-1">{subtitle}</div>
         )}
@@ -72,8 +90,21 @@ const PackageCard = ({
           </ul>
         )}
 
-        <div className="mt-auto pt-2">
-          <BookNow surface={surface} locale={locale} label={messages.quoteCta} />
+        <div className="mt-auto pt-2 flex flex-col gap-3">
+          {/* Above the stretched link, so it keeps its own destination. */}
+          <div className="relative z-10">
+            <BookNow
+              surface={surface}
+              locale={locale}
+              label={messages.quoteCta}
+            />
+          </div>
+          <span
+            aria-hidden="true"
+            className="text-sm font-normal opacity-60 group-hover:opacity-100 transition-opacity text-center"
+          >
+            {messages.viewDetails} →
+          </span>
         </div>
       </div>
     </div>

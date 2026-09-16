@@ -62,6 +62,11 @@ const en = {
     timeline: "Timeline",
     quoteCta: "Get a free quote",
     bookNow: "Get a free quote",
+    detailIntro: "What this covers",
+    otherPackages: "Other packages",
+    allPackages: "← All packages",
+    viewDetails: "View details",
+    startingAt: "Indicative price",
     contactForPricing: "On request",
   },
   contact: {

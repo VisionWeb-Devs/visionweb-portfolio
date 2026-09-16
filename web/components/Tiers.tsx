@@ -44,6 +44,7 @@ const Tiers = async ({
           <PackageCard
             key={pkg.documentId}
             name={pkg.name}
+            slug={pkg.slug}
             subtitle={pkg.subtitle}
             timeline={pkg.timeline}
             priceLabel={formatPriceRange(
