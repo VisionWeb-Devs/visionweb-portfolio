@@ -3,14 +3,55 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import Cursor from "@/components/Cursor";
+import { site, SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
 });
 export const metadata: Metadata = {
-  title: "Visionweb Devs",
-  description: "Portfolio site for Visionweb Devs",
+  // metadataBase makes every relative URL below resolve absolutely, which Open
+  // Graph and canonical tags both require.
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${site.name} — ${site.tagline}`,
+    template: `%s — ${site.name}`,
+  },
+  description: site.description,
+  applicationName: site.name,
+  keywords: [
+    "web development",
+    "web design",
+    "e-commerce development",
+    "custom web applications",
+    "Next.js development",
+    "web development Algeria",
+  ],
+  authors: [
+    { name: "Sadjed Bougandoura" },
+    { name: "Abd Eldjalil Selamnia" },
+  ],
+  creator: site.name,
+  publisher: site.name,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+    url: "/",
+    locale: "en",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 export default function RootLayout({
@@ -35,6 +76,38 @@ export default function RootLayout({
           Skip to content
         </a>
         <span id="top" />
+        {/*
+          Structured data. Only facts the business has actually stated are
+          included; no address beyond country, no ratings, no invented claims.
+        */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              name: site.name,
+              description: site.description,
+              url: SITE_URL,
+              image: `${SITE_URL}/opengraph-image`,
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: site.country,
+              },
+              founder: [
+                { "@type": "Person", name: "Sadjed Bougandoura", jobTitle: "Chief Executive Officer" },
+                { "@type": "Person", name: "Abd Eldjalil Selamnia", jobTitle: "Co-Founder" },
+              ],
+              sameAs: Object.values(site.social),
+              serviceType: [
+                "Web development",
+                "Web design",
+                "E-commerce development",
+                "Custom web application development",
+              ],
+            }),
+          }}
+        />
         <Cursor />
         <Header />
         {children}
