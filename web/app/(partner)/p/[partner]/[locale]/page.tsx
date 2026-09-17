@@ -8,6 +8,8 @@ import PartnerFooter from "@/components/PartnerFooter";
 import { isLocale } from "@/i18n/config";
 import { getMessages } from "@/i18n";
 import { getPartner } from "@/lib/partner";
+import { strapiFetch } from "@/lib/strapi";
+import type { StrapiPackage } from "@/types/strapi";
 
 /**
  * A partner's branded home page.
@@ -34,13 +36,26 @@ export default async function PartnerHome({
 
   const messages = await getMessages(locale);
 
+  // The capability row states what the partner can actually sell, so it is
+  // drawn from the price list rather than written separately.
+  const { data: packages } = await strapiFetch<StrapiPackage[]>("packages", {
+    query: { sort: "order:asc", fields: ["name"] },
+    tags: ["package"],
+    locale,
+  });
+
   return (
     <main id="main">
       <PartnerHero
         name={partner.name}
         tagline={partner.tagline}
+        logoUrl={partner.logoUrl}
+        logoWidth={partner.logoWidth}
+        logoHeight={partner.logoHeight}
+        services={packages.slice(0, 5).map((pkg) => pkg.name)}
         messages={messages.hero}
         ctaLabel={messages.pricing.quoteCta}
+        contactLabel={messages.nav.contact}
       />
       <WhatWeDo locale={locale} messages={messages.services} />
       <Process locale={locale} messages={messages.process} />

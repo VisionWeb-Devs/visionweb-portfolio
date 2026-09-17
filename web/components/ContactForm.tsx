@@ -9,8 +9,22 @@ import type { Locale } from "@/i18n/config";
 
 const initialState: ContactState = { status: "idle" };
 
+/**
+ * Fields inherit their colour from whatever surface they sit on via
+ * currentColor, rather than naming one. The same form renders on the light
+ * card of the main site and on a partner's dark footer, and hardcoding either
+ * pair makes it illegible on the other.
+ */
 const fieldClass =
-  "w-full bg-transparent border-b border-on-surface/30 focus:border-on-surface outline-none py-3 text-base placeholder:text-on-surface/40 transition-colors";
+  "w-full bg-transparent border-b border-current/30 focus:border-current outline-none py-3 text-base placeholder:opacity-40 transition-colors";
+
+/**
+ * Native dropdown lists are painted by the OS, not the page: an <option> with
+ * no explicit colour inherits the page's white text onto the system's light
+ * list and becomes invisible. surface/on-surface is a legible pair in every
+ * theme by definition, so it is stated outright.
+ */
+const optionClass = "bg-surface text-on-surface";
 
 function SubmitButton({ messages }: { messages: Messages["contact"] }) {
   const { pending } = useFormStatus();
@@ -126,10 +140,10 @@ const ContactForm = ({
             {messages.projectType}
           </label>
           <select id="projectType" name="projectType" className={fieldClass} defaultValue="other">
-            <option value="portfolio">{messages.types.portfolio}</option>
-            <option value="ecommerce">{messages.types.ecommerce}</option>
-            <option value="custom">{messages.types.custom}</option>
-            <option value="other">{messages.types.other}</option>
+            <option value="portfolio" className={optionClass}>{messages.types.portfolio}</option>
+            <option value="ecommerce" className={optionClass}>{messages.types.ecommerce}</option>
+            <option value="custom" className={optionClass}>{messages.types.custom}</option>
+            <option value="other" className={optionClass}>{messages.types.other}</option>
           </select>
         </div>
       </div>
