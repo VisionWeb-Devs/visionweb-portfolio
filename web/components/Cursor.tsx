@@ -50,7 +50,7 @@ const Cursor = () => {
       style={{ x, y, scale }}
       // Centred with negative margins rather than `-translate-*` utilities,
       // because Motion writes its own `transform` and would override them.
-      className="pointer-events-none fixed top-0 left-0 z-50 -mt-2 -ml-2 hidden h-4 w-4 rounded-full bg-paper mix-blend-difference [@media(pointer:fine)]:block"
+      className="pointer-events-none fixed top-0 left-0 z-50 -mt-2 -ml-2 hidden h-4 w-4 rounded-full bg-surface mix-blend-difference [@media(pointer:fine)]:block"
     />
   );
 };

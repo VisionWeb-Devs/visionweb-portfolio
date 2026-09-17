@@ -10,7 +10,7 @@ import type { Locale } from "@/i18n/config";
 const initialState: ContactState = { status: "idle" };
 
 const fieldClass =
-  "w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-3 text-base placeholder:text-ink/40 transition-colors";
+  "w-full bg-transparent border-b border-on-surface/30 focus:border-on-surface outline-none py-3 text-base placeholder:text-on-surface/40 transition-colors";
 
 function SubmitButton({ messages }: { messages: Messages["contact"] }) {
   const { pending } = useFormStatus();
@@ -19,7 +19,7 @@ function SubmitButton({ messages }: { messages: Messages["contact"] }) {
     <button
       type="submit"
       disabled={pending}
-      className="bg-ink text-paper rounded-full px-10 py-4 font-semibold w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
+      className="bg-accent text-on-accent rounded-full px-10 py-4 font-semibold w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
     >
       {pending ? messages.sending : messages.send}
     </button>
@@ -42,7 +42,7 @@ const ContactForm = ({
         initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
         animate={{ opacity: 1, y: 0 }}
         role="status"
-        className="border border-ink/30 rounded-2xl p-8 flex flex-col gap-2"
+        className="border border-on-surface/30 rounded-2xl p-8 flex flex-col gap-2"
       >
         <p className="text-2xl font-semibold normal-case">{messages.successTitle}</p>
         <p className="normal-case opacity-70">{state.message}</p>

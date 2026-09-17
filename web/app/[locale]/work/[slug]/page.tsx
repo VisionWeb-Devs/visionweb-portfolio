@@ -86,7 +86,7 @@ export default async function ProjectPage({
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
-    <article data-nav-theme="light" className="bg-paper text-ink">
+    <article data-nav-theme="light" className="bg-surface text-on-surface">
       <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-20 xl:pb-36 max-w-6xl mx-auto flex flex-col gap-16">
         <header className="flex flex-col gap-6">
           <NextLink
@@ -120,7 +120,7 @@ export default async function ProjectPage({
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-ink text-paper rounded-full px-8 py-4 font-semibold w-fit mt-2"
+              className="bg-accent text-on-accent rounded-full px-8 py-4 font-semibold w-fit mt-2"
             >
               {t.visitLive}
             </a>
@@ -185,7 +185,7 @@ export default async function ProjectPage({
               {project.techStack.map((tech) => (
                 <li
                   key={tech.id}
-                  className="border border-ink/25 rounded-full px-4 py-2 text-sm font-medium"
+                  className="border border-on-surface/25 rounded-full px-4 py-2 text-sm font-medium"
                 >
                   {tech.label}
                 </li>
@@ -215,7 +215,7 @@ export default async function ProjectPage({
 
         <NextLink
           href={`/${locale}#contact`}
-          className="bg-ink text-paper rounded-full px-8 py-4 font-semibold w-fit"
+          className="bg-accent text-on-accent rounded-full px-8 py-4 font-semibold w-fit"
         >
           {t.startSimilar}
         </NextLink>

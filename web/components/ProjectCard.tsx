@@ -15,7 +15,7 @@ const ProjectCard = ({ project, locale, messages }: ProjectCardProps) => {
   const { slug, name, description, url, image } = project;
 
   return (
-    <div className="text-paper flex w-full items-end gap-3">
+    <div className="text-on-surface-alt flex w-full items-end gap-3">
       {image && (
         // `sizes` is required here: without it Next assumes 100vw and ships the
         // largest candidate, which is how the original 2.5 MB PNG reached every

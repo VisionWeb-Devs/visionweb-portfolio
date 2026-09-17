@@ -24,7 +24,7 @@ const Home = async ({ params }: PageProps<"/[locale]">) => {
         <OurProjectsSection locale={locale} messages={messages.work} />
         <MeetTheTeam />
         <Process locale={locale} messages={messages.process} />
-        <div className="bg-ink">
+        <div className="bg-surface-alt">
           <Tiers locale={locale} messages={messages.pricing} />
           <Faq locale={locale} messages={messages.faq} />
           <Footer locale={locale} messages={messages} />

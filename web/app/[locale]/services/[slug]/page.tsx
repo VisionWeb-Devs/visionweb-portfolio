@@ -97,7 +97,7 @@ export default async function ServicePage({
   const others = all.filter((entry) => entry.slug !== pkg.slug).slice(0, 3);
 
   return (
-    <article data-nav-theme="light" className="bg-paper text-ink min-h-screen">
+    <article data-nav-theme="light" className="bg-surface text-on-surface min-h-screen">
       <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-24 max-w-5xl mx-auto flex flex-col gap-16">
         <header className="flex flex-col gap-5">
           <NextLink
@@ -161,7 +161,7 @@ export default async function ServicePage({
         )}
 
         {info?.included && info.included.length > 0 && (
-          <section className="flex flex-col gap-4 border-t border-ink/20 pt-10">
+          <section className="flex flex-col gap-4 border-t border-on-surface/20 pt-10">
             <h2 className="text-2xl font-semibold">{info.includedHeading}</h2>
             <ul className="grid sm:grid-cols-2 gap-3">
               {info.included.map((item) => (
@@ -181,12 +181,12 @@ export default async function ServicePage({
           </section>
         )}
 
-        <section className="bg-ink text-paper rounded-2xl p-8 xl:p-12 flex flex-col gap-5">
+        <section className="bg-surface-alt text-on-surface-alt rounded-2xl p-8 xl:p-12 flex flex-col gap-5">
           <h2 className="text-2xl xl:text-3xl font-semibold">{t.quoteCta}</h2>
           <div className="flex flex-wrap gap-4">
             <NextLink
               href={`/${locale}#contact`}
-              className="bg-paper text-ink rounded-full px-8 py-4 font-semibold"
+              className="bg-surface text-on-surface rounded-full px-8 py-4 font-semibold"
             >
               {t.quoteCta}
             </NextLink>
@@ -194,7 +194,7 @@ export default async function ServicePage({
               href={site.contact.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-paper/40 rounded-full px-8 py-4 font-semibold"
+              className="border border-on-surface-alt/40 rounded-full px-8 py-4 font-semibold"
             >
               WhatsApp
             </a>
@@ -202,14 +202,14 @@ export default async function ServicePage({
         </section>
 
         {others.length > 0 && (
-          <section className="flex flex-col gap-6 border-t border-ink/20 pt-10">
+          <section className="flex flex-col gap-6 border-t border-on-surface/20 pt-10">
             <h2 className="text-2xl font-semibold">{t.otherPackages}</h2>
             <ul className="grid sm:grid-cols-3 gap-4">
               {others.map((entry) => (
                 <li key={entry.slug}>
                   <NextLink
                     href={`/${locale}/services/${entry.slug}`}
-                    className="border border-ink/25 rounded-xl p-5 flex flex-col gap-1 h-full"
+                    className="border border-on-surface/25 rounded-xl p-5 flex flex-col gap-1 h-full"
                   >
                     <span className="font-semibold">{entry.name}</span>
                     {entry.subtitle && (

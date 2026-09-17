@@ -27,7 +27,7 @@ const FaqList = ({
     <section
       id="faq"
       data-nav-theme="dark"
-      className="bg-ink text-paper xl:px-36 px-12 xl:py-36 py-20"
+      className="bg-surface-alt text-on-surface-alt xl:px-36 px-12 xl:py-36 py-20"
     >
       <div className="flex flex-col gap-12 xl:gap-16 max-w-4xl">
         <div className="flex flex-col gap-4">
@@ -48,7 +48,7 @@ const FaqList = ({
                 duration: reduceMotion ? 0 : 0.4,
                 delay: reduceMotion ? 0 : index * 0.05,
               }}
-              className="group border-b border-paper/20 py-6"
+              className="group border-b border-on-surface-alt/20 py-6"
             >
               <summary className="flex items-start justify-between gap-6 text-xl xl:text-2xl font-semibold list-none [&::-webkit-details-marker]:hidden">
                 {item.question}

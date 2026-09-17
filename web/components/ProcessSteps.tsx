@@ -37,7 +37,7 @@ const ProcessSteps = ({
     <section
       id="process"
       data-nav-theme="light"
-      className="bg-paper text-ink xl:px-36 px-12 xl:py-36 py-20"
+      className="bg-surface text-on-surface xl:px-36 px-12 xl:py-36 py-20"
     >
       <motion.div
         initial="hidden"
@@ -58,7 +58,7 @@ const ProcessSteps = ({
             <motion.li
               key={step.id}
               variants={item}
-              className="flex flex-col gap-3 border-t border-ink/20 pt-6"
+              className="flex flex-col gap-3 border-t border-on-surface/20 pt-6"
             >
               <div className="flex items-baseline justify-between gap-4">
                 <span className="text-5xl font-semibold opacity-20 tabular-nums">

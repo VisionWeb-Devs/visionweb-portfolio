@@ -8,13 +8,34 @@
    be changed in one place.
    --------------------------------------------------------------------------- */
 @theme {
-  --color-ink: #121212;
-  --color-paper: #e9e8e7;
+  /* ---------------------------------------------------------------------
+     Semantic surfaces.
+
+     Previously two literal colours, `ink` and `paper`, that swapped roles
+     between bands. That works for a two-colour brand whose light and dark
+     are exact inverses, and cannot express a partner brand at all: a
+     mono-dark identity needs both bands dark, which is impossible when the
+     background of one band is the text colour of the other.
+
+     Each surface now carries its own foreground, so a theme can set both
+     bands dark and still be readable. A partner overrides these variables
+     and nothing else.
+     --------------------------------------------------------------------- */
+  --color-surface: #e9e8e7;
+  --color-on-surface: #121212;
+
+  --color-surface-alt: #121212;
+  --color-on-surface-alt: #e9e8e7;
+
+  /* Primary actions. VisionWeb has no accent hue, so it resolves to the
+     contrast surface and the look is unchanged; a partner supplies theirs. */
+  --color-accent: #121212;
+  --color-on-accent: #e9e8e7;
 }
 
 *::selection {
-  background-color: var(--color-ink);
-  color: var(--color-paper);
+  background-color: var(--color-on-surface);
+  color: var(--color-surface);
 }
 
 /* ---------------------------------------------------------------------------

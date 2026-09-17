@@ -35,11 +35,11 @@ const Button = ({ text, href }: ButtonProps) => {
         hover: { backgroundColor: "rgba(18, 18, 18, 1)" },
       }}
       transition={roll}
-      className="border-2 border-ink font-semibold px-8 py-2 rounded-md w-fit flex items-center overflow-hidden relative select-none"
+      className="border-2 border-on-surface font-semibold px-8 py-2 rounded-md w-fit flex items-center overflow-hidden relative select-none"
     >
       <span className="relative block overflow-hidden leading-tight">
         <motion.span
-          className="block text-ink"
+          className="block text-on-surface"
           variants={{ rest: { y: "0%" }, hover: { y: "-100%" } }}
           transition={roll}
         >
@@ -49,7 +49,7 @@ const Button = ({ text, href }: ButtonProps) => {
             label is not announced twice. */}
         <motion.span
           aria-hidden="true"
-          className="absolute inset-0 block text-paper"
+          className="absolute inset-0 block text-on-surface-alt"
           variants={{ rest: { y: "100%" }, hover: { y: "0%" } }}
           transition={roll}
         >

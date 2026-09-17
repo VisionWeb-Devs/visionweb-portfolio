@@ -76,8 +76,8 @@ const Header = ({ locale, messages }: HeaderProps) => {
   };
 
   const onDark = open || sectionTheme === "dark";
-  const barText = onDark ? "text-paper" : "text-ink";
-  const barBar = onDark ? "bg-paper" : "bg-ink";
+  const barText = onDark ? "text-on-surface-alt" : "text-on-surface";
+  const barBar = onDark ? "bg-surface" : "bg-surface-alt";
 
   const entrance = {
     initial: { opacity: 0 },
@@ -174,7 +174,7 @@ const Header = ({ locale, messages }: HeaderProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.25 }}
-            className="fixed inset-0 z-50 bg-ink text-paper md:hidden flex flex-col justify-center px-10 gap-10"
+            className="fixed inset-0 z-50 bg-surface-alt text-on-surface-alt md:hidden flex flex-col justify-center px-10 gap-10"
           >
             <nav aria-label={messages.mobileLabel}>
               <ul className="flex flex-col gap-6">

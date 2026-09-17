@@ -46,7 +46,7 @@ export default async function PartnersPage({
   ];
 
   return (
-    <article data-nav-theme="light" className="bg-paper text-ink min-h-screen">
+    <article data-nav-theme="light" className="bg-surface text-on-surface min-h-screen">
       <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-24 max-w-5xl mx-auto flex flex-col gap-16">
         <header className="flex flex-col gap-5">
           <NextLink
@@ -70,7 +70,7 @@ export default async function PartnersPage({
             {models.map((model) => (
               <div
                 key={model.title}
-                className="border border-ink/25 rounded-2xl p-8 flex flex-col gap-4"
+                className="border border-on-surface/25 rounded-2xl p-8 flex flex-col gap-4"
               >
                 <h3 className="text-xl xl:text-2xl font-semibold">
                   {model.title}
@@ -90,7 +90,7 @@ export default async function PartnersPage({
           </div>
         </section>
 
-        <section className="flex flex-col gap-3 border-t border-ink/20 pt-10">
+        <section className="flex flex-col gap-3 border-t border-on-surface/20 pt-10">
           <h2 className="text-2xl xl:text-3xl font-semibold">
             {t.ratesHeading}
           </h2>
@@ -98,7 +98,7 @@ export default async function PartnersPage({
           <p className="opacity-70 leading-relaxed max-w-3xl">{t.ratesBody}</p>
         </section>
 
-        <section className="bg-ink text-paper rounded-2xl p-8 xl:p-12 flex flex-col gap-5">
+        <section className="bg-surface-alt text-on-surface-alt rounded-2xl p-8 xl:p-12 flex flex-col gap-5">
           <h2 className="text-2xl xl:text-3xl font-semibold">
             {t.ctaHeading}
           </h2>
@@ -106,7 +106,7 @@ export default async function PartnersPage({
           <div className="flex flex-wrap gap-4 pt-2">
             <a
               href={`mailto:${site.contact.email}?subject=${encodeURIComponent(t.title)}`}
-              className="bg-paper text-ink rounded-full px-8 py-4 font-semibold"
+              className="bg-surface text-on-surface rounded-full px-8 py-4 font-semibold"
             >
               {t.cta}
             </a>
@@ -114,7 +114,7 @@ export default async function PartnersPage({
               href={site.contact.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-paper/40 rounded-full px-8 py-4 font-semibold"
+              className="border border-on-surface-alt/40 rounded-full px-8 py-4 font-semibold"
             >
               WhatsApp
             </a>

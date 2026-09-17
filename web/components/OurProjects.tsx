@@ -55,7 +55,7 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
       };
 
   const intro = (
-    <div className="relative h-screen w-screen shrink-0 bg-ink text-paper flex flex-col items-center justify-center gap-24 xl:px-36 px-12 py-36">
+    <div className="relative h-screen w-screen shrink-0 bg-surface-alt text-on-surface-alt flex flex-col items-center justify-center gap-24 xl:px-36 px-12 py-36">
       <motion.span
         initial="hidden"
         whileInView="visible"
@@ -120,7 +120,7 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
   );
 
   const gallery = (
-    <div className="h-screen w-screen shrink-0 bg-ink text-paper flex items-end gap-24 xl:px-36 px-12 py-36">
+    <div className="h-screen w-screen shrink-0 bg-surface-alt text-on-surface-alt flex items-end gap-24 xl:px-36 px-12 py-36">
       {projects.map((project) => (
         <ProjectCard
           key={project.id}
@@ -135,7 +135,7 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
   // Reduced motion: no scroll hijacking, the panels simply stack.
   if (reduceMotion) {
     return (
-      <section id="work" data-nav-theme="dark" className="bg-ink">
+      <section id="work" data-nav-theme="dark" className="bg-surface-alt">
         {intro}
         {gallery}
       </section>
@@ -147,7 +147,7 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
       id="work"
       ref={container}
       data-nav-theme="dark"
-      className="relative h-[300vh] bg-ink"
+      className="relative h-[300vh] bg-surface-alt"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div style={{ x }} className="flex h-screen w-[200vw]">
