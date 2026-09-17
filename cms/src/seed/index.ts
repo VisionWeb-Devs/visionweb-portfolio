@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { Core } from "@strapi/strapi";
 import { seedPricing } from "./pricing";
+import { seedPartners } from "./partners";
 
 /**
  * Seeds the content that was previously hardcoded in the Next.js components.
@@ -175,6 +176,7 @@ export async function seed({ strapi }: { strapi: Core.Strapi }) {
   // a union of UIDs cannot produce a `data` shape that satisfies all of them.
 
   await seedPricing({ strapi });
+  await seedPartners({ strapi });
 
   const projectDocs = strapi.documents("api::project.project");
   // Resolved from the Strapi project root rather than __dirname: compiled code

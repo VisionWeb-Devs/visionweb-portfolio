@@ -29,9 +29,12 @@ function SubmitButton({ messages }: { messages: Messages["contact"] }) {
 const ContactForm = ({
   messages,
   locale,
+  partner,
 }: {
   messages: Messages["contact"];
   locale: Locale;
+  /** Subdomain of the partner site this was submitted from, if any. */
+  partner?: string;
 }) => {
   const reduceMotion = useReducedMotion();
   const [state, formAction] = useActionState(submitContact, initialState);
@@ -53,6 +56,7 @@ const ContactForm = ({
   return (
     <form action={formAction} className="flex flex-col gap-6 normal-case">
       <input type="hidden" name="locale" value={locale} />
+      {partner && <input type="hidden" name="partner" value={partner} />}
       {/* Honeypot: positioned off-screen rather than display:none, which some
           bots detect, and excluded from tab order and the accessibility tree. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">

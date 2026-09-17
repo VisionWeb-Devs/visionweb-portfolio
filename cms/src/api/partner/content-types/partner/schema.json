@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "partners",
+  "info": {
+    "singularName": "partner",
+    "pluralName": "partners",
+    "displayName": "Partner",
+    "description": "A signed partner with their own branded subdomain. Not localized: this is configuration, identical in every language."
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "subdomain": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "regex": "^[a-z0-9]([a-z0-9-]*[a-z0-9])?$"
+    },
+    "tagline": { "type": "string" },
+    "logo": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "colorSurface": { "type": "string", "default": "#e9e8e7", "maxLength": 9 },
+    "colorOnSurface": { "type": "string", "default": "#121212", "maxLength": 9 },
+    "colorSurfaceAlt": { "type": "string", "default": "#121212", "maxLength": 9 },
+    "colorOnSurfaceAlt": { "type": "string", "default": "#e9e8e7", "maxLength": 9 },
+    "colorAccent": { "type": "string", "default": "#121212", "maxLength": 9 },
+    "colorOnAccent": { "type": "string", "default": "#e9e8e7", "maxLength": 9 },
+    "email": { "type": "email" },
+    "phone": { "type": "string" },
+    "whatsapp": { "type": "string" },
+    "defaultLocale": {
+      "type": "enumeration",
+      "enum": ["en", "fr"],
+      "default": "en",
+      "required": true
+    },
+    "indexable": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "active": { "type": "boolean", "default": true, "required": true }
+  }
+}
