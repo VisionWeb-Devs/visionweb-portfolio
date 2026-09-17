@@ -10,7 +10,7 @@ import type { Locale } from "@/i18n/config";
 const initialState: ContactState = { status: "idle" };
 
 const fieldClass =
-  "w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-3 text-base placeholder:text-ink/40 transition-colors";
+  "w-full bg-transparent border-b border-ink/40 focus:border-ink focus-visible:outline-2 focus-visible:outline-offset-4 py-3 text-base placeholder:text-ink/65 transition-colors";
 
 function SubmitButton({ messages }: { messages: Messages["contact"] }) {
   const { pending } = useFormStatus();
@@ -90,6 +90,7 @@ const ContactForm = ({
             id="email"
             name="email"
             type="email"
+            spellCheck={false}
             required
             autoComplete="email"
             aria-invalid={Boolean(state.fieldErrors?.email)}

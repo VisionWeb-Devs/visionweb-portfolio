@@ -1,4 +1,5 @@
 import React from "react";
+import { packageFeatures } from "@/lib/package-features";
 import PackageCard from "./PackageCard";
 import { strapiFetch } from "@/lib/strapi";
 import { formatPriceRange } from "@/lib/format";
@@ -54,7 +55,7 @@ const Tiers = async ({
               locale,
               messages.contactForPricing,
             )}
-            features={(pkg.features ?? []).map((feature) => feature.label)}
+            features={packageFeatures(pkg.slug, locale, (pkg.features ?? []).map((feature) => feature.label), (info?.included ?? []).map((item) => item.label))}
             surface={index % 2 === 0 ? "ink" : "paper"}
             locale={locale}
             messages={messages}

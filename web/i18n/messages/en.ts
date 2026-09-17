@@ -13,13 +13,22 @@ const en = {
     language: "Language",
   },
   hero: {
-    eyebrowOne: "Web development studio",
+    eyebrowOne: "Independent software development studio",
     eyebrowTwo: "Websites that work as hard as you do",
+    projectCta: "Let's talk",
+    workCta: "Explore our work",
+    disciplines: "Design & development, thoughtfully connected.",
     scroll: "SCROLL",
   },
   services: {
     eyebrow: "What we do",
-    heading: "Want to take your business to the next level?",
+    heading: "Good ideas deserve a great digital presence.",
+    intro: "We bring design and development together to turn what makes your business different into something people can see, feel and use.",
+    items: [
+      { title: "Digital design", description: "A clear point of view, down to the smallest interaction. We shape an experience around your brand and the people who use it.", detail: "Art direction · Interface design · Prototyping" },
+      { title: "Development", description: "Thoughtful design, built to work beautifully. Responsive layouts, purposeful motion and fast, dependable performance on every screen.", detail: "Custom development · E-commerce · CMS integration" },
+      { title: "Care & evolution", description: "Launch is a beginning. We help you keep things running, make useful improvements and grow your digital presence with your business.", detail: "Maintenance · Improvements · Ongoing support" },
+    ],
     cta: "See our work",
     points: [
       "We are a team of developers and designers who can help you achieve your goals.",
@@ -53,7 +62,8 @@ const en = {
   },
   faq: {
     eyebrow: "Questions",
-    heading: "Things clients usually ask",
+    heading: "Good questions. Clear answers.",
+    note: "A little clarity before we get started.",
   },
   pricing: {
     heading: "Packages",
@@ -70,6 +80,9 @@ const en = {
     contactForPricing: "On request",
   },
   contact: {
+    projectLabel: "Have something in mind?",
+    projectHeading: "Let's make it happen.",
+    projectIntro: "Tell us what you're thinking. We'll help you find the right direction, scope and next step.",
     heading: "CONTACT",
     intro:
       "Let's connect. Reach out and let the conversation begin — your thoughts, questions and ideas are always welcome.",

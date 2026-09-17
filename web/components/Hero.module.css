@@ -1,0 +1,61 @@
+/* web/components/Hero.module.css */
+.hero {
+  min-height: 100svh;
+  padding: clamp(6.5rem, 8vw, 8rem) clamp(1.5rem, 7vw, 9rem) 1.5rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(2.5rem, 5vh, 5rem);
+  overflow: clip;
+}
+.topline { display: flex; justify-content: space-between; align-items: start; gap: 2rem; font-size: .875rem; }
+.topline p { max-width: 17rem; line-height: 1.5; }
+.smallLink { display: inline-flex; align-items: center; gap: 2rem; padding-bottom: .5rem; border-bottom: 1px solid currentColor; white-space: nowrap; }
+.smallLink > span { transition: transform 250ms var(--ease-editorial); }
+.composition { position: relative; padding-block: .02em; }
+.title { font-size: clamp(4rem, 14.8vw, 16rem); font-weight: 500; line-height: .89; letter-spacing: -.04em; user-select: none; }
+.word, .secondWord { display: block; }
+.secondWord { margin-top: .06em; text-align: right; }
+.reveal { display: inline-block; animation: word-enter 950ms cubic-bezier(.22,1,.36,1) both; }
+.secondWord .reveal { animation-delay: 110ms; }
+.letter { display: inline-block; transition: transform 450ms var(--ease-editorial); }
+.period { display: inline-block; }
+.statement { position: absolute; left: 0; bottom: .3rem; width: min(30%, 19rem); }
+.statement p { font-size: clamp(1.1rem, 1.65vw, 1.7rem); line-height: 1.4; text-wrap: balance; }
+.workLink { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.6rem; padding: .7rem 0; border-bottom: 1px solid currentColor; font-size: .85rem; }
+.arrowWindow { display: block; position: relative; width: 1.4rem; height: 1.4rem; overflow: hidden; font-size: 1.4rem; line-height: 1; }
+.arrowWindow > span { display: block; transition: transform 300ms var(--ease-editorial); }
+.arrowWindow > span:last-child { position: absolute; inset: 0; transform: translate(-100%,100%); }
+.bottom { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-top: 1px solid #12121235; padding-top: .75rem; font-size: .75rem; }
+.scroll { display: flex; align-items: center; gap: 1.5rem; padding-block: .6rem; }
+.scroll > span { display: inline-block; font-size: 1.25rem; transition: transform 250ms var(--ease-editorial); }
+@keyframes word-enter {
+  from { transform: translateY(35%); clip-path: inset(0 0 100% 0); }
+  to { transform: translateY(0); clip-path: inset(0 0 0 0); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .letter:hover { transform: translateY(-.055em); transition-duration: 160ms; }
+  .smallLink:hover > span { transform: translate(3px,-3px); }
+  .workLink:hover .arrowWindow > span:first-child { transform: translate(100%,-100%); }
+  .workLink:hover .arrowWindow > span:last-child { transform: translate(0,0); }
+  .scroll:hover > span { transform: translateY(4px); }
+}
+@media (max-width: 900px) {
+  .hero { padding-top: 7.5rem; gap: 3.5rem; }
+  .topline { font-size: .75rem; }
+  .topline p { max-width: 11rem; }
+  .smallLink { gap: 1rem; }
+  .title { font-size: clamp(3rem, 15vw, 8rem); }
+  .secondWord { margin-top: .12em; }
+  .statement { position: static; width: min(100%, 20rem); margin-top: 3rem; }
+  .statement p { font-size: 1.25rem; max-width: 15rem; }
+  .workLink { margin-top: 1rem; }
+  .bottom { font-size: .65rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; }
+  .letter, .smallLink > span, .scroll > span, .arrowWindow > span { transition: none; }
+  .letter:hover { transform: none; }
+}

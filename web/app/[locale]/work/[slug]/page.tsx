@@ -6,6 +6,7 @@ import { locales, isLocale } from "@/i18n/config";
 import { getMessages } from "@/i18n";
 import type { StrapiProject } from "@/types/strapi";
 import NextLink from "next/link";
+import styles from "@/components/InnerPage.module.css";
 
 /**
  * Case study page.
@@ -86,30 +87,31 @@ export default async function ProjectPage({
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
-    <article data-nav-theme="light" className="bg-paper text-ink">
-      <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-20 xl:pb-36 max-w-6xl mx-auto flex flex-col gap-16">
-        <header className="flex flex-col gap-6">
+    <article data-nav-theme="light" className={styles.page}>
+      <div className={styles.shell}>
+        <header className={styles.masthead}>
           <NextLink
             href={`/${locale}#work`}
-            className="text-sm font-semibold opacity-60 w-fit"
+            className={styles.back}
           >
+            <span aria-hidden="true">←</span>
             {t.backToWork}
           </NextLink>
-          <h1 className="text-4xl xl:text-7xl font-semibold leading-[0.95]">
+          <h1 className={styles.title}>
             {project.name}
           </h1>
-          <p className="text-lg xl:text-2xl opacity-70 max-w-3xl">
+          <p className={styles.intro}>
             {project.description}
           </p>
 
           {facts.length > 0 && (
-            <dl className="flex flex-wrap gap-x-12 gap-y-4 pt-4">
+            <dl className={styles.facts}>
               {facts.map((fact) => (
-                <div key={fact.label} className="flex flex-col gap-1">
-                  <dt className="text-sm font-semibold opacity-50">
+                <div key={fact.label}>
+                  <dt>
                     {fact.label}
                   </dt>
-                  <dd className="text-lg">{fact.value}</dd>
+                  <dd>{fact.value}</dd>
                 </div>
               ))}
             </dl>
@@ -120,58 +122,50 @@ export default async function ProjectPage({
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-ink text-paper rounded-full px-8 py-4 font-semibold w-fit mt-2"
+              className={styles.secondary}
             >
               {t.visitLive}
+              <span aria-hidden="true" className={styles.arrow}>↗</span>
             </a>
           )}
         </header>
 
         {project.screenshots?.[0] && (
-          <Image
-            src={strapiMediaUrl(project.screenshots[0].url)}
-            alt={
-              project.screenshots[0].alternativeText ?? `${project.name} screenshot`
-            }
-            width={project.screenshots[0].width}
-            height={project.screenshots[0].height}
-            sizes="(min-width: 1280px) 1100px, 100vw"
-            className="w-full h-auto rounded-2xl"
-            priority
-          />
+          <figure className={styles.media}>
+            <Image
+              src={strapiMediaUrl(project.screenshots[0].url)}
+              alt={
+                project.screenshots[0].alternativeText ?? `${project.name} screenshot`
+              }
+              width={project.screenshots[0].width}
+              height={project.screenshots[0].height}
+              sizes="(min-width: 1600px) 1312px, (min-width: 768px) 86vw, 100vw"
+              priority
+            />
+          </figure>
         )}
 
-        {(project.problem || project.solution) && (
-          <div className="grid md:grid-cols-2 gap-12">
-            {project.problem && (
-              <section className="flex flex-col gap-3">
-                <h2 className="text-2xl font-semibold">{t.problem}</h2>
-                <p className="opacity-70 leading-relaxed whitespace-pre-line">
-                  {project.problem}
-                </p>
-              </section>
-            )}
-            {project.solution && (
-              <section className="flex flex-col gap-3">
-                <h2 className="text-2xl font-semibold">{t.solution}</h2>
-                <p className="opacity-70 leading-relaxed whitespace-pre-line">
-                  {project.solution}
-                </p>
-              </section>
-            )}
-          </div>
+        {project.problem && (
+          <section className={styles.section}>
+            <h2 className={styles.heading}>{t.problem}</h2>
+            <p className={styles.body}>{project.problem}</p>
+          </section>
+        )}
+        {project.solution && (
+          <section className={styles.section}>
+            <h2 className={styles.heading}>{t.solution}</h2>
+            <p className={styles.body}>{project.solution}</p>
+          </section>
         )}
 
         {project.features && project.features.length > 0 && (
-          <section className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold">{t.features}</h2>
-            <ul className="grid sm:grid-cols-2 gap-3">
+          <section className={styles.section}>
+            <h2 className={styles.heading}>{t.features}</h2>
+            <ul className={styles.features}>
               {project.features.map((feature) => (
-                <li key={feature.id} className="flex gap-3 opacity-80">
-                  <span aria-hidden="true" className="opacity-50">
-                    &#10003;
-                  </span>
-                  {feature.label}
+                <li key={feature.id}>
+                  <span aria-hidden="true">+</span>
+                  <span>{feature.label}</span>
                 </li>
               ))}
             </ul>
@@ -179,46 +173,45 @@ export default async function ProjectPage({
         )}
 
         {project.techStack && project.techStack.length > 0 && (
-          <section className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold">{t.builtWith}</h2>
-            <ul className="flex flex-wrap gap-3">
+          <section className={styles.section}>
+            <h2 className={styles.heading}>{t.builtWith}</h2>
+            <ul className={styles.tech}>
               {project.techStack.map((tech) => (
-                <li
-                  key={tech.id}
-                  className="border border-ink/25 rounded-full px-4 py-2 text-sm font-medium"
-                >
-                  {tech.label}
-                </li>
+                <li key={tech.id}>{tech.label}</li>
               ))}
             </ul>
           </section>
         )}
 
         {project.screenshots && project.screenshots.length > 1 && (
-          <section className="flex flex-col gap-6">
-            <h2 className="text-2xl font-semibold">{t.moreScreens}</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
+          <section className={styles.gallerySection}>
+            <h2 className={styles.heading}>{t.moreScreens}</h2>
+            <div className={styles.gallery}>
               {project.screenshots.slice(1).map((shot) => (
-                <Image
-                  key={shot.url}
-                  src={strapiMediaUrl(shot.url)}
-                  alt={shot.alternativeText ?? `${project.name} screenshot`}
-                  width={shot.width}
-                  height={shot.height}
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                  className="w-full h-auto rounded-xl"
-                />
+                <figure key={shot.url} className={styles.media}>
+                  <Image
+                    src={strapiMediaUrl(shot.url)}
+                    alt={shot.alternativeText ?? `${project.name} screenshot`}
+                    width={shot.width}
+                    height={shot.height}
+                    sizes="(min-width: 1600px) 632px, (min-width: 601px) 43vw, 100vw"
+                  />
+                </figure>
               ))}
             </div>
           </section>
         )}
 
-        <NextLink
-          href={`/${locale}#contact`}
-          className="bg-ink text-paper rounded-full px-8 py-4 font-semibold w-fit"
-        >
-          {t.startSimilar}
-        </NextLink>
+        <div className={styles.cta}>
+          <NextLink href={`/${locale}#contact`} className={styles.action}>
+            {t.startSimilar}
+            <span aria-hidden="true" className={styles.arrow}>↗</span>
+          </NextLink>
+          <NextLink href={`/${locale}#work`} className={styles.secondary}>
+            {t.backToWork}
+            <span aria-hidden="true" className={styles.arrow}>↗</span>
+          </NextLink>
+        </div>
       </div>
     </article>
   );

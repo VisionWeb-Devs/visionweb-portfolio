@@ -1,73 +1,47 @@
+// web/components/FaqList.tsx
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { Messages } from "@/i18n";
+import styles from "./Editorial.module.css";
 
-type FaqItem = {
-  id: string;
-  question: string;
-  answer: string;
-};
+type FaqItem = { id: string; question: string; answer: string };
 
-/**
- * Uses native <details>/<summary> rather than a hand-rolled accordion: it is
- * keyboard operable, screen-reader friendly and searchable in-page by default,
- * with no state to manage.
- */
-const FaqList = ({
-  items,
-  messages,
-}: {
+export default function FaqList({ items, messages }: {
   items: FaqItem[];
   messages: Messages["faq"];
-}) => {
+}) {
+  const [active, setActive] = useState<string | null>(items[0]?.id ?? null);
+  const [turns, setTurns] = useState(0);
   const reduceMotion = useReducedMotion();
-
   return (
-    <section
-      id="faq"
-      data-nav-theme="dark"
-      className="bg-ink text-paper xl:px-36 px-12 xl:py-36 py-20"
-    >
-      <div className="flex flex-col gap-12 xl:gap-16 max-w-4xl">
-        <div className="flex flex-col gap-4">
-          <p className="xl:text-lg font-semibold opacity-65">{messages.eyebrow}</p>
-          <h2 className="xl:text-5xl text-3xl font-semibold leading-tight">
-            {messages.heading}
-          </h2>
-        </div>
-
-        <div className="flex flex-col">
-          {items.map((item, index) => (
-            <motion.details
-              key={item.id}
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: reduceMotion ? 0 : 0.4,
-                delay: reduceMotion ? 0 : index * 0.05,
-              }}
-              className="group border-b border-paper/20 py-6"
-            >
-              <summary className="flex items-start justify-between gap-6 text-xl xl:text-2xl font-semibold list-none [&::-webkit-details-marker]:hidden">
-                {item.question}
-                <span
-                  aria-hidden="true"
-                  className="shrink-0 text-2xl leading-none transition-transform duration-200 group-open:rotate-45"
-                >
-                  +
-                </span>
-              </summary>
-              <p className="opacity-70 leading-relaxed pt-4 max-w-3xl">
-                {item.answer}
-              </p>
-            </motion.details>
-          ))}
-        </div>
+    <section id="faq" data-nav-theme="dark" className={styles.faq} aria-labelledby="faq-title">
+      <div className={styles.faqIntro}>
+        <p className={styles.sectionLabel}>{messages.eyebrow}</p>
+        <h2 id="faq-title">{messages.heading}</h2>
+        <motion.div aria-hidden="true" className={styles.faqSymbol} animate={{ rotate: reduceMotion ? 0 : turns * 90 }} transition={{ duration: reduceMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}>✳</motion.div>
+        <p className={styles.faqNote}>{messages.note}</p>
+      </div>
+      <div className={styles.faqList}>
+        {items.map((item, index) => {
+          const open = active === item.id;
+          return (
+            <div key={item.id} className={styles.faqRow} data-open={open}>
+              <h3>
+                <button id={`faq-button-${item.id}`} type="button" aria-expanded={open} aria-controls={`faq-panel-${item.id}`} onClick={() => { setActive(open ? null : item.id); setTurns(value => value + 1); }}>
+                  <span className={styles.faqNumber} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                  <span>{item.question}</span>
+                  <span className={styles.faqPlus} aria-hidden="true"><i /><i /></span>
+                </button>
+              </h3>
+              <div id={`faq-panel-${item.id}`} role="region" aria-labelledby={`faq-button-${item.id}`} className={styles.faqAnswer} inert={!open}>
+                <div><p>{item.answer}</p></div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
-};
-
-export default FaqList;
+}

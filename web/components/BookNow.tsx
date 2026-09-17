@@ -2,6 +2,7 @@ import React from "react";
 import type { Surface } from "@/types/content";
 import type { Locale } from "@/i18n/config";
 import NextLink from "next/link";
+import styles from "./Portfolio.module.css";
 
 type BookNowProps = {
   /** The surface of the card this button sits on; the button inverts it. */
@@ -16,9 +17,10 @@ const BookNow = ({ surface, locale, label }: BookNowProps) => {
   return (
     <NextLink
       href={`/${locale}#contact`}
-      className={`${inverted} w-full py-3 xl:py-5 rounded-full block text-center`}
+      className={`${inverted} ${styles.quote}`}
     >
       {label}
+      <span aria-hidden="true" className={styles.quoteArrow}>↗</span>
     </NextLink>
   );
 };

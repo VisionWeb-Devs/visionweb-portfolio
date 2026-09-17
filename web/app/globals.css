@@ -12,6 +12,20 @@
   --color-paper: #e9e8e7;
 }
 
+:root {
+  --z-menu: 40;
+  --z-header: 50;
+  --z-skip-link: 60;
+  --z-cursor: 90;
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body { background: var(--color-paper); color: var(--color-ink); }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+a, button, input, select, textarea, summary { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+
 *::selection {
   background-color: var(--color-ink);
   color: var(--color-paper);
@@ -27,18 +41,18 @@
    makes that mismatch structurally impossible.
    --------------------------------------------------------------------------- */
 @media (pointer: fine) {
-  *,
-  *::before,
-  *::after {
+  html[data-custom-cursor="true"] *,
+  html[data-custom-cursor="true"] *::before,
+  html[data-custom-cursor="true"] *::after {
     cursor: none;
   }
 }
 
 /* Anyone who asks for reduced motion gets the native cursor back. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  html[data-custom-cursor] *,
+  html[data-custom-cursor] *::before,
+  html[data-custom-cursor] *::after {
     cursor: auto;
   }
 }
@@ -59,4 +73,11 @@ html {
 /* Keeps a section heading clear of the fixed header when jumped to by anchor. */
 [id] {
   scroll-margin-top: 6rem;
+}
+
+/* The desktop header includes 5rem of vertical padding plus its text line. */
+@media (min-width: 1280px) {
+  [id] {
+    scroll-margin-top: 8rem;
+  }
 }

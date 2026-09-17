@@ -1,0 +1,14 @@
+/* web/components/Header.module.css */
+.header { transform: translateY(0); transition: transform 350ms cubic-bezier(.22,1,.36,1); }
+.header[data-hidden="true"] { transform: translateY(-100%); }
+.header:focus-within { transform: translateY(0); }
+.bar { padding-inline: clamp(1.5rem, 7vw, 9rem); }
+.brand { display: flex; align-items: center; gap: .25rem; flex-shrink: 0; }
+.logo { display: inline-flex; overflow: hidden; font-weight: 600; letter-spacing: -.035em; line-height: 1.25; }
+.wordmark { display: inline-flex; align-items: baseline; }
+.logoEye { width: .86em; height: .86em; align-self: center; margin-inline: -.015em; overflow: visible; }
+.brand :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .header { transition: none; }
+  .header[data-hidden="true"] { transform: none; }
+}

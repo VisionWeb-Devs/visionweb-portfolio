@@ -1,6 +1,4 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
+import styles from "./Link.module.css";
 
 type LinkProps = {
   text: string;
@@ -13,35 +11,11 @@ type LinkProps = {
  * `<a>` tags that wrap it.
  */
 const Link = ({ text }: LinkProps) => {
-  const reduceMotion = useReducedMotion();
-  const roll = {
-    duration: reduceMotion ? 0 : 0.2,
-    ease: "easeOut",
-  } as const;
-
   return (
-    <motion.span
-      initial="rest"
-      animate="rest"
-      whileHover="hover"
-      className="relative block overflow-hidden uppercase leading-tight"
-    >
-      <motion.span
-        className="block"
-        variants={{ rest: { y: "0%" }, hover: { y: "-100%" } }}
-        transition={roll}
-      >
-        {text}
-      </motion.span>
-      <motion.span
-        aria-hidden="true"
-        className="absolute inset-0 block"
-        variants={{ rest: { y: "100%" }, hover: { y: "0%" } }}
-        transition={roll}
-      >
-        {text}
-      </motion.span>
-    </motion.span>
+    <span className={styles.label}>
+      <span>{text}</span>
+      <span aria-hidden="true">{text}</span>
+    </span>
   );
 };
 

@@ -7,6 +7,8 @@ import { locales, isLocale } from "@/i18n/config";
 import { getMessages } from "@/i18n";
 import { SITE_URL, site } from "@/lib/site";
 import type { StrapiPackage, StrapiPricingInfo } from "@/types/strapi";
+import { packageFeatures } from "@/lib/package-features";
+import styles from "@/components/InnerPage.module.css";
 
 /**
  * Detail page for a single service from the price list.
@@ -95,39 +97,45 @@ export default async function ServicePage({
   );
 
   const others = all.filter((entry) => entry.slug !== pkg.slug).slice(0, 3);
+  const features = packageFeatures(
+    pkg.slug,
+    locale,
+    pkg.features?.map((feature) => feature.label) ?? [],
+  );
 
   return (
-    <article data-nav-theme="light" className="bg-paper text-ink min-h-screen">
-      <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-24 max-w-5xl mx-auto flex flex-col gap-16">
-        <header className="flex flex-col gap-5">
+    <article data-nav-theme="light" className={styles.page}>
+      <div className={styles.shell}>
+        <header className={styles.masthead}>
           <NextLink
             href={`/${locale}#pricing`}
-            className="text-sm font-semibold opacity-60 w-fit"
+            className={styles.back}
           >
+            <span aria-hidden="true">←</span>
             {t.allPackages}
           </NextLink>
-          <h1 className="text-4xl xl:text-7xl font-semibold leading-[0.95]">
+          <h1 className={styles.title}>
             {pkg.name}
           </h1>
           {pkg.subtitle && (
-            <p className="text-xl xl:text-2xl opacity-70">{pkg.subtitle}</p>
+            <p className={styles.intro}>{pkg.subtitle}</p>
           )}
 
-          <dl className="flex flex-wrap gap-x-12 gap-y-4 pt-4">
-            <div className="flex flex-col gap-1">
-              <dt className="text-sm font-semibold opacity-50">
+          <dl className={styles.facts}>
+            <div>
+              <dt>
                 {t.startingAt}
               </dt>
-              <dd className="text-2xl xl:text-3xl font-semibold">
+              <dd>
                 {priceLabel}
               </dd>
             </div>
             {pkg.timeline && (
-              <div className="flex flex-col gap-1">
-                <dt className="text-sm font-semibold opacity-50">
+              <div>
+                <dt>
                   {t.timeline}
                 </dt>
-                <dd className="text-2xl xl:text-3xl font-semibold">
+                <dd>
                   {pkg.timeline}
                 </dd>
               </div>
@@ -136,24 +144,22 @@ export default async function ServicePage({
         </header>
 
         {pkg.description && (
-          <section className="flex flex-col gap-3">
-            <h2 className="text-2xl font-semibold">{t.detailIntro}</h2>
-            <p className="opacity-70 leading-relaxed whitespace-pre-line max-w-3xl">
+          <section className={styles.section}>
+            <h2 className={styles.heading}>{t.detailIntro}</h2>
+            <p className={styles.body}>
               {pkg.description}
             </p>
           </section>
         )}
 
-        {pkg.features && pkg.features.length > 0 && (
-          <section className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold">{t.included}</h2>
-            <ul className="grid sm:grid-cols-2 gap-3">
-              {pkg.features.map((feature) => (
-                <li key={feature.id} className="flex gap-3 opacity-80">
-                  <span aria-hidden="true" className="opacity-50">
-                    &#10003;
-                  </span>
-                  {feature.label}
+        {features.length > 0 && (
+          <section className={styles.section}>
+            <h2 className={styles.heading}>{t.included}</h2>
+            <ul className={styles.features}>
+              {features.map((feature) => (
+                <li key={feature}>
+                  <span aria-hidden="true">+</span>
+                  <span>{feature}</span>
                 </li>
               ))}
             </ul>
@@ -161,62 +167,65 @@ export default async function ServicePage({
         )}
 
         {info?.included && info.included.length > 0 && (
-          <section className="flex flex-col gap-4 border-t border-ink/20 pt-10">
-            <h2 className="text-2xl font-semibold">{info.includedHeading}</h2>
-            <ul className="grid sm:grid-cols-2 gap-3">
-              {info.included.map((item) => (
-                <li key={item.id} className="flex gap-3 opacity-80">
-                  <span aria-hidden="true" className="opacity-50">
-                    &#10003;
-                  </span>
-                  {item.label}
-                </li>
-              ))}
-            </ul>
-            {info.disclaimer && (
-              <p className="text-sm opacity-60 max-w-3xl pt-2">
-                {info.disclaimer}
-              </p>
-            )}
+          <section className={styles.section}>
+            <h2 className={styles.heading}>{info.includedHeading}</h2>
+            <div className={styles.content}>
+              <ul className={styles.features}>
+                {info.included.map((item) => (
+                  <li key={item.id}>
+                    <span aria-hidden="true">+</span>
+                    <span>{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+              {info.disclaimer && (
+                <p className={styles.note}>{info.disclaimer}</p>
+              )}
+            </div>
           </section>
         )}
 
-        <section className="bg-ink text-paper rounded-2xl p-8 xl:p-12 flex flex-col gap-5">
-          <h2 className="text-2xl xl:text-3xl font-semibold">{t.quoteCta}</h2>
-          <div className="flex flex-wrap gap-4">
+        <section className={styles.cta}>
+          <h2>{t.quoteCta}</h2>
+          <div className={styles.actions}>
             <NextLink
               href={`/${locale}#contact`}
-              className="bg-paper text-ink rounded-full px-8 py-4 font-semibold"
+              className={styles.action}
             >
               {t.quoteCta}
+              <span aria-hidden="true" className={styles.arrow}>↗</span>
             </NextLink>
             <a
               href={site.contact.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-paper/40 rounded-full px-8 py-4 font-semibold"
+              className={styles.secondary}
             >
               WhatsApp
+              <span aria-hidden="true" className={styles.arrow}>↗</span>
             </a>
           </div>
         </section>
 
         {others.length > 0 && (
-          <section className="flex flex-col gap-6 border-t border-ink/20 pt-10">
-            <h2 className="text-2xl font-semibold">{t.otherPackages}</h2>
-            <ul className="grid sm:grid-cols-3 gap-4">
+          <section className={styles.section}>
+            <h2 className={styles.heading}>{t.otherPackages}</h2>
+            <ul className={styles.related}>
               {others.map((entry) => (
                 <li key={entry.slug}>
                   <NextLink
                     href={`/${locale}/services/${entry.slug}`}
-                    className="border border-ink/25 rounded-xl p-5 flex flex-col gap-1 h-full"
+                    className={styles.relatedLink}
                   >
-                    <span className="font-semibold">{entry.name}</span>
-                    {entry.subtitle && (
-                      <span className="text-sm opacity-60">
-                        {entry.subtitle}
-                      </span>
-                    )}
+                    <div>
+                      <span className={styles.relatedName}>{entry.name}</span>
+                      {entry.subtitle && (
+                        <span className={styles.relatedSubtitle}>
+                          {entry.subtitle}
+                        </span>
+                      )}
+                    </div>
+                    <span aria-hidden="true" className={styles.arrow}>↗</span>
                   </NextLink>
                 </li>
               ))}

@@ -79,7 +79,7 @@ export default async function RootLayout({
       <body className="overflow-x-hidden">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[var(--z-skip-link)] focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
         >
           {messages.nav.skipToContent}
         </a>

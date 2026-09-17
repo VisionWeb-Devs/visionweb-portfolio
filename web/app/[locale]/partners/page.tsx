@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/i18n/config";
 import { getMessages } from "@/i18n";
 import { site } from "@/lib/site";
+import styles from "@/components/InnerPage.module.css";
 
 /**
  * Partner recruitment page.
@@ -46,41 +47,40 @@ export default async function PartnersPage({
   ];
 
   return (
-    <article data-nav-theme="light" className="bg-paper text-ink min-h-screen">
-      <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-24 max-w-5xl mx-auto flex flex-col gap-16">
-        <header className="flex flex-col gap-5">
+    <article data-nav-theme="light" className={styles.page}>
+      <div className={styles.shell}>
+        <header className={styles.masthead}>
           <NextLink
             href={`/${locale}`}
-            className="text-sm font-semibold opacity-60 w-fit"
+            className={styles.back}
           >
+            <span aria-hidden="true">←</span>
             {messages.footer.backToSite}
           </NextLink>
-          <h1 className="text-4xl xl:text-7xl font-semibold leading-[0.95]">
+          <h1 className={styles.title}>
             {t.title}
           </h1>
-          <p className="text-xl xl:text-3xl font-medium">{t.tagline}</p>
-          <p className="text-lg opacity-70 max-w-3xl">{t.intro}</p>
+          <p className={styles.tagline}>{t.tagline}</p>
+          <p className={styles.intro}>{t.intro}</p>
         </header>
 
-        <section className="flex flex-col gap-8">
-          <h2 className="text-2xl xl:text-3xl font-semibold">
+        <section className={styles.gallerySection}>
+          <h2 className={styles.heading}>
             {t.modelsHeading}
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className={styles.models}>
             {models.map((model) => (
               <div
                 key={model.title}
-                className="border border-ink/25 rounded-2xl p-8 flex flex-col gap-4"
+                className={styles.model}
               >
-                <h3 className="text-xl xl:text-2xl font-semibold">
+                <h3>
                   {model.title}
                 </h3>
-                <ul className="flex flex-col gap-3">
+                <ul>
                   {model.points.map((point) => (
-                    <li key={point} className="flex gap-3 opacity-80">
-                      <span aria-hidden="true" className="opacity-50">
-                        &#10003;
-                      </span>
+                    <li key={point}>
+                      <span aria-hidden="true">+</span>
                       {point}
                     </li>
                   ))}
@@ -90,33 +90,35 @@ export default async function PartnersPage({
           </div>
         </section>
 
-        <section className="flex flex-col gap-3 border-t border-ink/20 pt-10">
-          <h2 className="text-2xl xl:text-3xl font-semibold">
+        <section className={styles.section}>
+          <h2 className={styles.heading}>
             {t.ratesHeading}
           </h2>
           {/* Describes how commission works without stating any figure. */}
-          <p className="opacity-70 leading-relaxed max-w-3xl">{t.ratesBody}</p>
+          <p className={styles.body}>{t.ratesBody}</p>
         </section>
 
-        <section className="bg-ink text-paper rounded-2xl p-8 xl:p-12 flex flex-col gap-5">
-          <h2 className="text-2xl xl:text-3xl font-semibold">
-            {t.ctaHeading}
-          </h2>
-          <p className="opacity-70 max-w-2xl">{t.ctaBody}</p>
-          <div className="flex flex-wrap gap-4 pt-2">
+        <section className={styles.cta}>
+          <div>
+            <h2>{t.ctaHeading}</h2>
+            <p className={styles.body}>{t.ctaBody}</p>
+          </div>
+          <div className={styles.actions}>
             <a
               href={`mailto:${site.contact.email}?subject=${encodeURIComponent(t.title)}`}
-              className="bg-paper text-ink rounded-full px-8 py-4 font-semibold"
+              className={styles.action}
             >
               {t.cta}
+              <span aria-hidden="true" className={styles.arrow}>↗</span>
             </a>
             <a
               href={site.contact.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-paper/40 rounded-full px-8 py-4 font-semibold"
+              className={styles.secondary}
             >
               WhatsApp
+              <span aria-hidden="true" className={styles.arrow}>↗</span>
             </a>
           </div>
         </section>

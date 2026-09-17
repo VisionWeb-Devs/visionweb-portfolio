@@ -1,75 +1,52 @@
+// web/components/Hero.tsx
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import type { Messages } from "@/i18n";
+import styles from "./Hero.module.css";
 
-const Hero = ({ messages }: { messages: Messages["hero"] }) => {
+export default function Hero({ messages }: { messages: Messages["hero"] }) {
   const reduceMotion = useReducedMotion();
-
-  const container: Variants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: reduceMotion ? 0 : 0.18, delayChildren: 0.1 },
-    },
-  };
-
-  // Mask reveal: each line wipes in from its own baseline.
-  const line: Variants = {
-    hidden: { y: "50%", clipPath: "inset(0 0 100% 0)", opacity: 0 },
-    visible: {
-      y: "0%",
-      clipPath: "inset(0 0 0% 0)",
-      opacity: 1,
-      transition: { duration: reduceMotion ? 0 : 1.1, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
-
-  const fade: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: reduceMotion ? 0 : 0.6, delay: reduceMotion ? 0 : 1.2 },
-    },
-  };
+  const section = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end start"] });
+  const firstDrift = useTransform(scrollYProgress, [0, 1], ["0%", "-3%"]);
+  const secondDrift = useTransform(scrollYProgress, [0, 1], ["0%", "3%"]);
 
   return (
-    <div
-      data-nav-theme="light"
-      className="h-screen bg-paper text-ink flex justify-center items-center relative"
-    >
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={container}
-        className="flex flex-col gap-4 xl:gap-0 items-center font-medium text-sm"
-      >
-        <p className="opacity-85 flex flex-col items-center">
-          <motion.span variants={line} className="block">
-            {messages.eyebrowOne}
+    <section ref={section} className={styles.hero} aria-labelledby="hero-title" data-nav-theme="light">
+      <div className={styles.topline}>
+        <p>{messages.eyebrowOne}</p>
+        <a href="#contact" className={styles.smallLink}>{messages.projectCta}<span aria-hidden="true">↗</span></a>
+      </div>
+
+      <div className={styles.composition}>
+        <h1 id="hero-title" className={styles.title} aria-label="Visionweb Devs">
+          <motion.span className={styles.word} style={reduceMotion ? undefined : { x: firstDrift }} aria-hidden="true">
+            <span className={styles.reveal}>
+              {"Visionweb".split("").map((letter, index) => <span key={index} className={styles.letter}>{letter}</span>)}
+            </span>
           </motion.span>
-          <motion.span variants={line} className="block">
-            {messages.eyebrowTwo}
-          </motion.span>
-        </p>
-        <h1 className="2xl:text-[10rem] md:text-9xl text-5xl leading-[0.85] select-none flex flex-col">
-          <motion.span variants={line} className="block">
-            Visionweb
-          </motion.span>
-          <motion.span variants={line} className="block">
-            Devs
+          <motion.span className={styles.secondWord} style={reduceMotion ? undefined : { x: secondDrift }} aria-hidden="true">
+            <span className={styles.reveal}>
+              {"Devs".split("").map((letter, index) => <span key={index} className={styles.letter}>{letter}</span>)}
+              <span className={styles.period}>.</span>
+            </span>
           </motion.span>
         </h1>
-      </motion.div>
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={fade}
-        className="absolute bottom-16 left-1/2 -translate-x-1/2 font-[400] text-sm xl:text-base"
-      >
-        {messages.scroll}
-      </motion.div>
-    </div>
-  );
-};
+        <div className={styles.statement}>
+          <p>{messages.eyebrowTwo}</p>
+          <a href="#work" className={styles.workLink}>
+            <span>{messages.workCta}</span>
+            <span className={styles.arrowWindow} aria-hidden="true"><span>↗</span><span>↗</span></span>
+          </a>
+        </div>
+      </div>
 
-export default Hero;
+      <div className={styles.bottom}>
+        <span>{messages.disciplines}</span>
+        <a href="#services" className={styles.scroll}>{messages.scroll}<span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+  );
+}

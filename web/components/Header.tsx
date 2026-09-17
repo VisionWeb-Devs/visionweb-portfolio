@@ -9,6 +9,9 @@ import NavLabel from "./Link";
 import { locales, localeNames, type Locale } from "@/i18n/config";
 import { useSectionTheme } from "@/hooks/useSectionTheme";
 import type { Messages } from "@/i18n";
+import { useHeaderScroll } from "@/hooks/useHeaderScroll";
+import styles from "./Header.module.css";
+import VisionLogo from "./VisionLogo";
 
 type HeaderProps = {
   locale: Locale;
@@ -32,7 +35,9 @@ const Header = ({ locale, messages }: HeaderProps) => {
   const pathname = usePathname();
   const sectionTheme = useSectionTheme();
   const [open, setOpen] = useState(false);
+  const scrollHidden = useHeaderScroll();
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Kept to five: every extra item costs scannability, and Why Us and the FAQ
   // are both reachable by scrolling from the sections that precede them.
@@ -52,7 +57,23 @@ const Header = ({ locale, messages }: HeaderProps) => {
         setOpen(false);
         toggleRef.current?.focus();
       }
+      if (event.key === "Tab") {
+        const controls = [toggleRef.current, ...Array.from(menuRef.current?.querySelectorAll<HTMLElement>("a[href], button:not(:disabled)") ?? [])].filter((item): item is HTMLElement => item !== null);
+        const first = controls[0];
+        const last = controls.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
     };
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
+    const focusFrame = requestAnimationFrame(() => menuRef.current?.querySelector<HTMLElement>("a[href]")?.focus());
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -61,6 +82,8 @@ const Header = ({ locale, messages }: HeaderProps) => {
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", closeOnDesktop);
+      cancelAnimationFrame(focusFrame);
     };
   }, [open]);
 
@@ -76,15 +99,14 @@ const Header = ({ locale, messages }: HeaderProps) => {
   };
 
   const onDark = open || sectionTheme === "dark";
-  const barText = onDark ? "text-paper" : "text-ink";
+  const barText = onDark ? "bg-ink text-paper" : "bg-paper text-ink";
   const barBar = onDark ? "bg-paper" : "bg-ink";
 
   const entrance = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
     transition: {
-      duration: reduceMotion ? 0 : 0.5,
-      delay: reduceMotion ? 0 : 1.2,
+      duration: reduceMotion ? 0 : 0.3,
     },
   };
 
@@ -114,19 +136,23 @@ const Header = ({ locale, messages }: HeaderProps) => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-40 pointer-events-none">
+      <header data-hidden={scrollHidden && !open} className={`${styles.header} fixed top-0 left-0 w-full z-[var(--z-header)] pointer-events-none`}>
         <motion.div
           {...entrance}
-          className={`${barText} pointer-events-auto xl:px-36 px-6 xl:py-10 py-5 flex items-center justify-between font-medium transition-colors duration-300`}
+          className={`${styles.bar} ${barText} pointer-events-auto py-5 lg:py-6 flex items-center justify-between font-medium transition-colors duration-300 motion-reduce:transition-none`}
         >
+          <div className={styles.brand}>
           <NextLink
             href={`/${locale}`}
-            className="2xl:text-xl font-semibold tracking-tight"
+            aria-label="Visionweb"
+            onClick={() => setOpen(false)}
+            className={`${styles.logo} 2xl:text-xl`}
           >
-            <NavLabel text="Visionweb" />
+            <VisionLogo />
           </NextLink>
+          </div>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             <nav aria-label={messages.mainLabel}>
               <ul className="flex items-center gap-8 2xl:text-lg">
                 {links.map((link) => (
@@ -148,7 +174,7 @@ const Header = ({ locale, messages }: HeaderProps) => {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? messages.closeMenu : messages.openMenu}
-            className="md:hidden flex flex-col justify-center gap-[6px] w-8 h-8 items-end"
+            className="lg:hidden flex flex-col justify-center gap-[6px] w-11 h-11 items-center touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-4"
           >
             <motion.span
               aria-hidden="true"
@@ -170,11 +196,12 @@ const Header = ({ locale, messages }: HeaderProps) => {
         {open && (
           <motion.div
             id="mobile-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.25 }}
-            className="fixed inset-0 z-50 bg-ink text-paper md:hidden flex flex-col justify-center px-10 gap-10"
+            ref={menuRef}
+            initial={{ clipPath: reduceMotion ? "inset(0)" : "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: reduceMotion ? "inset(0)" : "inset(0 0 100% 0)" }}
+            transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[var(--z-menu)] bg-ink text-paper lg:hidden flex flex-col justify-start overflow-y-auto px-8 pt-32 pb-12 gap-10"
           >
             <nav aria-label={messages.mobileLabel}>
               <ul className="flex flex-col gap-6">

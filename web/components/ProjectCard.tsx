@@ -1,54 +1,47 @@
 import Image from "next/image";
-import Link from "./Link";
+import NextLink from "next/link";
 import type { ProjectView } from "@/types/view";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n";
-import NextLink from "next/link";
+import styles from "./Portfolio.module.css";
 
 type ProjectCardProps = {
   project: ProjectView;
   locale: Locale;
   messages: Messages["work"];
+  index?: number;
 };
 
-const ProjectCard = ({ project, locale, messages }: ProjectCardProps) => {
+const ProjectCard = ({ project, locale, messages, index = 0 }: ProjectCardProps) => {
   const { slug, name, description, url, image } = project;
+  const href = `/${locale}/work/${slug}`;
 
   return (
-    <div className="text-paper flex w-full items-end gap-3">
-      {image && (
-        // `sizes` is required here: without it Next assumes 100vw and ships the
-        // largest candidate, which is how the original 2.5 MB PNG reached every
-        // visitor for a 500px slot.
-        <Image
-          src={image.url}
-          alt={image.alt}
-          width={image.width}
-          height={image.height}
-          sizes="500px"
-          className="w-[500px] h-auto"
-        />
-      )}
-      <div className="flex flex-col gap-1">
-        <h3 className="text-xl font-medium text-nowrap">
-          <NextLink href={`/${locale}/work/${slug}`}>{name}</NextLink>
-        </h3>
-        <p className="text-sm text-nowrap">{description}</p>
-        <NextLink href={`/${locale}/work/${slug}`} className="font-semibold">
-          <Link text={messages.caseStudy} />
-        </NextLink>
-        {url && (
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold"
-          >
-            <Link text={messages.visit} />
-          </a>
-        )}
+    <article className={styles.project}>
+      <NextLink href={href} className={styles.projectImage} aria-label={`${messages.caseStudy}: ${name}`}>
+        {image ? (
+          <Image
+            src={image.url}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            sizes="(max-width: 700px) 88vw, (max-width: 1000px) 44vw, 46vw"
+          />
+        ) : <span className={styles.projectPlaceholder} aria-hidden="true">{name}</span>}
+        <span className={styles.projectImageArrow} aria-hidden="true">↗</span>
+      </NextLink>
+      <div className={styles.projectInfo}>
+        <span className={styles.projectIndex} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+        <div>
+          <h3><NextLink href={href}>{name}</NextLink></h3>
+          <p>{description}</p>
+          <div className={styles.projectLinks}>
+            <NextLink href={href} className={styles.textLink}>{messages.caseStudy}<span aria-hidden="true">↗</span></NextLink>
+            {url && <a href={url} target="_blank" rel="noopener noreferrer" className={styles.textLink}>{messages.visit}<span aria-hidden="true">↗</span></a>}
+          </div>
+        </div>
       </div>
-    </div>
+    </article>
   );
 };
 

@@ -17,6 +17,18 @@ import type { Core } from "@strapi/strapi";
  */
 const PUBLIC_ACTIONS = [
   "api::contact-submission.contact-submission.create",
+  "api::faq.faq.find",
+  "api::faq.faq.findOne",
+  "api::package.package.find",
+  "api::package.package.findOne",
+  "api::pricing-info.pricing-info.find",
+  "api::pricing-info.pricing-info.findOne",
+  "api::process-step.process-step.find",
+  "api::process-step.process-step.findOne",
+  "api::project.project.find",
+  "api::project.project.findOne",
+  "api::team-member.team-member.find",
+  "api::team-member.team-member.findOne",
 ];
 
 export async function grantPublicPermissions({ strapi }: { strapi: Core.Strapi }) {

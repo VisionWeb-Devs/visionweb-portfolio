@@ -1,7 +1,7 @@
 import Tiers from "@/components/Tiers";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import MeetTheTeam from "@/components/MeetTheTeam";
+import ContactSection from "@/components/ContactSection";
 import OurProjectsSection from "@/components/OurProjectsSection";
 import WhatWeDo from "@/components/WhatWeDo";
 import Process from "@/components/Process";
@@ -22,11 +22,11 @@ const Home = async ({ params }: PageProps<"/[locale]">) => {
         <Hero messages={messages.hero} />
         <WhatWeDo locale={locale} messages={messages.services} />
         <OurProjectsSection locale={locale} messages={messages.work} />
-        <MeetTheTeam />
         <Process locale={locale} messages={messages.process} />
         <div className="bg-ink">
           <Tiers locale={locale} messages={messages.pricing} />
           <Faq locale={locale} messages={messages.faq} />
+          <ContactSection locale={locale} messages={messages.contact} />
           <Footer locale={locale} messages={messages} />
         </div>
       </main>

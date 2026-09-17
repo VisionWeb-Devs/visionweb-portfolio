@@ -25,13 +25,22 @@ const fr: Messages = {
     language: "Langue",
   },
   hero: {
-    eyebrowOne: "Studio de développement web",
+    eyebrowOne: "Studio indépendant de développement logiciel",
     eyebrowTwo: "Des sites qui travaillent autant que vous",
+    projectCta: "Parlons-en",
+    workCta: "Voir nos réalisations",
+    disciplines: "Design et développement, pensés ensemble.",
     scroll: "DÉFILER",
   },
   services: {
     eyebrow: "Ce que nous faisons",
-    heading: "Envie de faire passer votre entreprise au niveau supérieur ?",
+    heading: "Vos idées méritent une présence digitale à leur hauteur.",
+    intro: "Nous réunissons design et développement pour donner vie à ce qui rend votre entreprise unique.",
+    items: [
+      { title: "Design digital", description: "Un parti pris clair, jusque dans les plus petites interactions. Nous créons une expérience autour de votre marque et de ses utilisateurs.", detail: "Direction artistique · Design d'interface · Prototypage" },
+      { title: "Développement", description: "Un design soigné, une réalisation solide. Des interfaces adaptées à chaque écran, des animations utiles et des performances fiables.", detail: "Développement sur mesure · E-commerce · Intégration CMS" },
+      { title: "Suivi & évolution", description: "La mise en ligne est un début. Nous assurons le suivi et les améliorations pour faire évoluer votre présence digitale avec votre entreprise.", detail: "Maintenance · Améliorations · Accompagnement" },
+    ],
     cta: "Voir nos réalisations",
     points: [
       "Nous sommes une équipe de développeurs et de designers qui vous aide à atteindre vos objectifs.",
@@ -66,7 +75,8 @@ const fr: Messages = {
   },
   faq: {
     eyebrow: "Questions",
-    heading: "Ce que nos clients demandent souvent",
+    heading: "Vos questions. Nos réponses.",
+    note: "Quelques précisions avant de commencer.",
   },
   pricing: {
     heading: "Formules",
@@ -83,6 +93,9 @@ const fr: Messages = {
     contactForPricing: "Sur devis",
   },
   contact: {
+    projectLabel: "Un projet en tête ?",
+    projectHeading: "Donnons-lui vie.",
+    projectIntro: "Parlez-nous de votre idée. Nous vous aiderons à définir la direction, le périmètre et la prochaine étape.",
     heading: "CONTACT",
     intro:
       "Parlons-en. Écrivez-nous et lançons la conversation — vos idées, vos questions et vos projets sont toujours les bienvenus.",

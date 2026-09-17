@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import NextLink from "next/link";
 import type { Locale } from "@/i18n/config";
+import styles from "./InnerPage.module.css";
 
 /**
  * Shared shell for legal pages.
@@ -24,22 +25,23 @@ const LegalPage = ({
   backLabel: string;
   updatedLabel: string;
 }) => (
-  <article data-nav-theme="light" className="bg-paper text-ink min-h-screen">
-    <div className="xl:px-36 px-8 pt-40 xl:pt-56 pb-24 max-w-3xl mx-auto flex flex-col gap-8">
-      <header className="flex flex-col gap-3">
+  <article data-nav-theme="light" className={styles.page}>
+    <div className={styles.shell}>
+      <header className={styles.masthead}>
         <NextLink
           href={`/${locale}`}
-          className="text-sm font-semibold opacity-60 w-fit"
+          className={styles.back}
         >
+          <span aria-hidden="true">←</span>
           {backLabel}
         </NextLink>
-        <h1 className="text-4xl xl:text-6xl font-semibold">{title}</h1>
-        <p className="text-sm opacity-60">
+        <h1 className={styles.title}>{title}</h1>
+      </header>
+      <div className={styles.legal}>
+        <p className={styles.meta}>
           {updatedLabel}: {updated}
         </p>
-      </header>
-      <div className="flex flex-col gap-6 leading-relaxed [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-4 [&_p]:opacity-80 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:opacity-80 [&_li]:mb-2 [&_a]:underline">
-        {children}
+        <div className={styles.legalBody}>{children}</div>
       </div>
     </div>
   </article>
