@@ -104,7 +104,7 @@ const MeetTheTeam = () => {
   // appeared twice in the DOM for crawlers and screen readers.
   if (!pinned) {
     return (
-      <section id="why-us" data-nav-theme="light" className="xl:px-44 px-12 xl:py-36 py-20 min-h-screen bg-paper text-ink flex xl:flex-row flex-col xl:justify-center xl:items-center gap-10 xl:gap-24">
+      <section id="why-us" data-nav-theme="light" className="xl:px-44 px-12 xl:py-36 py-20 min-h-screen bg-surface text-on-surface flex xl:flex-row flex-col xl:justify-center xl:items-center gap-10 xl:gap-24">
         {illustration}
         <div className="flex flex-col gap-10">
           {whyUs.map((item) => (
@@ -124,10 +124,10 @@ const MeetTheTeam = () => {
       id="why-us"
       ref={section}
       data-nav-theme="light"
-      className="relative h-[400vh] bg-paper"
+      className="relative h-[400vh] bg-surface"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="xl:px-44 px-12 h-full bg-paper text-ink flex xl:flex-row flex-col xl:justify-center xl:items-center gap-10 xl:gap-24">
+        <div className="xl:px-44 px-12 h-full bg-surface text-on-surface flex xl:flex-row flex-col xl:justify-center xl:items-center gap-10 xl:gap-24">
           {illustration}
           <div className="relative flex flex-col w-full max-w-[700px]">
             {whyUs.map((item, index) => (

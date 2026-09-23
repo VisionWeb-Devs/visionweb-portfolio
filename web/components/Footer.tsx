@@ -1,3 +1,4 @@
+// web/components/Footer.tsx
 import NextLink from "next/link";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n";

@@ -99,8 +99,8 @@ const Header = ({ locale, messages }: HeaderProps) => {
   };
 
   const onDark = open || sectionTheme === "dark";
-  const barText = onDark ? "bg-ink text-paper" : "bg-paper text-ink";
-  const barBar = onDark ? "bg-paper" : "bg-ink";
+  const barText = onDark ? "text-on-surface-alt" : "text-on-surface";
+  const barBar = onDark ? "bg-on-surface-alt" : "bg-on-surface";
 
   const entrance = {
     initial: { opacity: 0 },
@@ -201,7 +201,7 @@ const Header = ({ locale, messages }: HeaderProps) => {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: reduceMotion ? "inset(0)" : "inset(0 0 100% 0)" }}
             transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[var(--z-menu)] bg-ink text-paper lg:hidden flex flex-col justify-start overflow-y-auto px-8 pt-32 pb-12 gap-10"
+            className="fixed inset-0 z-[var(--z-menu)] bg-surface-alt text-on-surface-alt lg:hidden flex flex-col justify-start overflow-y-auto px-8 pt-32 pb-12 gap-10"
           >
             <nav aria-label={messages.mobileLabel}>
               <ul className="flex flex-col gap-6">

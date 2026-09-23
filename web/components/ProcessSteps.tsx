@@ -38,7 +38,7 @@ const ProcessSteps = ({
     <section
       id="process"
       data-nav-theme="light"
-      className={`${styles.process} bg-paper text-ink`}
+      className={`${styles.process} bg-surface text-on-surface`}
     >
       <motion.div
         initial={reduceMotion ? false : "hidden"}
@@ -59,7 +59,7 @@ const ProcessSteps = ({
             <motion.li
               key={step.id}
               variants={item}
-              className={`${styles.processStep} flex flex-col gap-4 border-t border-ink/25 pt-6`}
+              className={`${styles.processStep} flex flex-col gap-4 border-t border-on-surface/25 pt-6`}
             >
               <div className="flex items-baseline justify-between gap-4">
                 <span className={`${styles.stepNumber} text-5xl font-medium tabular-nums tracking-tight`}>

@@ -40,8 +40,8 @@ const PackageCard = ({
 }: PackageCardProps) => {
   const skin =
     surface === "ink"
-      ? "bg-ink text-paper"
-      : "bg-paper text-ink";
+      ? "bg-surface-alt text-on-surface-alt border-on-surface-alt"
+      : "bg-surface text-on-surface border-on-surface";
 
   return (
     <div

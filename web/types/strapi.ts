@@ -127,11 +127,37 @@ export type StrapiFaq = StrapiEntry & {
 };
 
 /**
+ * A signed partner with a branded subdomain. Not localized: this is
+ * configuration, identical in every language.
+ */
+export type StrapiPartner = StrapiEntry & {
+  name: string;
+  subdomain: string;
+  tagline: string | null;
+  logo?: StrapiMedia | null;
+  colorSurface: string;
+  colorOnSurface: string;
+  colorSurfaceAlt: string;
+  colorOnSurfaceAlt: string;
+  colorAccent: string;
+  colorOnAccent: string;
+  email: string | null;
+  phone: string | null;
+  whatsapp: string | null;
+  defaultLocale: "en" | "fr";
+  /** Partner sites repeat the main site's content; indexing them costs the
+   *  main domain, so this is opt-in per partner. */
+  indexable: boolean;
+  active: boolean;
+};
+
+/**
  * Cache tags. These deliberately match Strapi's webhook `model` values, so the
  * revalidation handler can map a webhook straight onto a tag with no lookup
  * table to keep in sync.
  */
 export const STRAPI_TAGS = [
+  "partner",
   "project",
   "pricing-info",
   "package",

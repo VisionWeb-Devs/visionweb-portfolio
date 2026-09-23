@@ -487,6 +487,10 @@ export interface ApiContactSubmissionContactSubmission
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
+    partner: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
     projectType: Schema.Attribute.Enumeration<
       ['portfolio', 'ecommerce', 'custom', 'other']
     > &
@@ -577,6 +581,82 @@ export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPartnerPartner extends Struct.CollectionTypeSchema {
+  collectionName: 'partners';
+  info: {
+    description: 'A signed partner with their own branded subdomain. Not localized: this is configuration, identical in every language.';
+    displayName: 'Partner';
+    pluralName: 'partners';
+    singularName: 'partner';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    active: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    colorAccent: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 9;
+      }> &
+      Schema.Attribute.DefaultTo<'#121212'>;
+    colorOnAccent: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 9;
+      }> &
+      Schema.Attribute.DefaultTo<'#e9e8e7'>;
+    colorOnSurface: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 9;
+      }> &
+      Schema.Attribute.DefaultTo<'#121212'>;
+    colorOnSurfaceAlt: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 9;
+      }> &
+      Schema.Attribute.DefaultTo<'#e9e8e7'>;
+    colorSurface: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 9;
+      }> &
+      Schema.Attribute.DefaultTo<'#e9e8e7'>;
+    colorSurfaceAlt: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 9;
+      }> &
+      Schema.Attribute.DefaultTo<'#121212'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    defaultLocale: Schema.Attribute.Enumeration<['en', 'fr']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'en'>;
+    email: Schema.Attribute.Email;
+    indexable: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partner.partner'
+    > &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    subdomain: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    tagline: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    whatsapp: Schema.Attribute.String;
   };
 }
 
@@ -1253,6 +1333,7 @@ declare module '@strapi/strapi' {
       'api::contact-submission.contact-submission': ApiContactSubmissionContactSubmission;
       'api::faq.faq': ApiFaqFaq;
       'api::package.package': ApiPackagePackage;
+      'api::partner.partner': ApiPartnerPartner;
       'api::pricing-info.pricing-info': ApiPricingInfoPricingInfo;
       'api::process-step.process-step': ApiProcessStepProcessStep;
       'api::project.project': ApiProjectProject;

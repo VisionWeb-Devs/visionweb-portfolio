@@ -9,8 +9,22 @@ import type { Locale } from "@/i18n/config";
 
 const initialState: ContactState = { status: "idle" };
 
+/**
+ * Fields inherit their colour from whatever surface they sit on via
+ * currentColor, rather than naming one. The same form renders on the light
+ * card of the main site and on a partner's dark footer, and hardcoding either
+ * pair makes it illegible on the other.
+ */
 const fieldClass =
-  "w-full bg-transparent border-b border-ink/40 focus:border-ink focus-visible:outline-2 focus-visible:outline-offset-4 py-3 text-base placeholder:text-ink/65 transition-colors";
+  "w-full bg-transparent border-b border-current/30 focus:border-current focus-visible:outline-2 focus-visible:outline-offset-4 py-3 text-base placeholder:opacity-40 transition-colors";
+
+/**
+ * Native dropdown lists are painted by the OS, not the page: an <option> with
+ * no explicit colour inherits the page's white text onto the system's light
+ * list and becomes invisible. surface/on-surface is a legible pair in every
+ * theme by definition, so it is stated outright.
+ */
+const optionClass = "bg-surface text-on-surface";
 
 function SubmitButton({ messages }: { messages: Messages["contact"] }) {
   const { pending } = useFormStatus();
@@ -19,7 +33,7 @@ function SubmitButton({ messages }: { messages: Messages["contact"] }) {
     <button
       type="submit"
       disabled={pending}
-      className="bg-ink text-paper rounded-full px-10 py-4 font-semibold w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
+      className="bg-accent text-on-accent rounded-full px-10 py-4 font-semibold w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
     >
       {pending ? messages.sending : messages.send}
     </button>
@@ -29,9 +43,12 @@ function SubmitButton({ messages }: { messages: Messages["contact"] }) {
 const ContactForm = ({
   messages,
   locale,
+  partner,
 }: {
   messages: Messages["contact"];
   locale: Locale;
+  /** Subdomain of the partner site this was submitted from, if any. */
+  partner?: string;
 }) => {
   const reduceMotion = useReducedMotion();
   const [state, formAction] = useActionState(submitContact, initialState);
@@ -42,7 +59,7 @@ const ContactForm = ({
         initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
         animate={{ opacity: 1, y: 0 }}
         role="status"
-        className="border border-ink/30 rounded-2xl p-8 flex flex-col gap-2"
+        className="border border-on-surface/30 rounded-2xl p-8 flex flex-col gap-2"
       >
         <p className="text-2xl font-semibold normal-case">{messages.successTitle}</p>
         <p className="normal-case opacity-70">{state.message}</p>
@@ -53,6 +70,7 @@ const ContactForm = ({
   return (
     <form action={formAction} className="flex flex-col gap-6 normal-case">
       <input type="hidden" name="locale" value={locale} />
+      {partner && <input type="hidden" name="partner" value={partner} />}
       {/* Honeypot: positioned off-screen rather than display:none, which some
           bots detect, and excluded from tab order and the accessibility tree. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -123,10 +141,10 @@ const ContactForm = ({
             {messages.projectType}
           </label>
           <select id="projectType" name="projectType" className={fieldClass} defaultValue="other">
-            <option value="portfolio">{messages.types.portfolio}</option>
-            <option value="ecommerce">{messages.types.ecommerce}</option>
-            <option value="custom">{messages.types.custom}</option>
-            <option value="other">{messages.types.other}</option>
+            <option value="portfolio" className={optionClass}>{messages.types.portfolio}</option>
+            <option value="ecommerce" className={optionClass}>{messages.types.ecommerce}</option>
+            <option value="custom" className={optionClass}>{messages.types.custom}</option>
+            <option value="other" className={optionClass}>{messages.types.other}</option>
           </select>
         </div>
       </div>

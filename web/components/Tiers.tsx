@@ -37,7 +37,7 @@ const Tiers = async ({
   ]);
 
   return (
-    <section id="pricing" data-nav-theme="dark" className=" bg-ink text-paper xl:px-36 px-12 xl:py-36 py-20 flex flex-col gap-16 xl:gap-24 min-h-screen">
+    <section id="pricing" data-nav-theme="dark" className=" bg-surface-alt text-on-surface-alt xl:px-36 px-12 xl:py-36 py-20 flex flex-col gap-16 xl:gap-24 min-h-screen">
       <h2 className="text-4xl xl:text-5xl font-semibold">{messages.heading}</h2>
 
       <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
@@ -64,7 +64,7 @@ const Tiers = async ({
       </div>
 
       {info && (
-        <div className="flex flex-col gap-10 border-t border-paper/20 pt-12">
+        <div className="flex flex-col gap-10 border-t border-on-surface-alt/20 pt-12">
           <div className="grid md:grid-cols-2 gap-10">
             {info.included && info.included.length > 0 && (
               <div className="flex flex-col gap-4">

@@ -12,7 +12,7 @@ type BookNowProps = {
 };
 
 const BookNow = ({ surface, locale, label }: BookNowProps) => {
-  const inverted = surface === "ink" ? "bg-paper text-ink" : "bg-ink text-paper";
+  const inverted = surface === "ink" ? "bg-surface text-on-surface" : "bg-surface-alt text-on-surface-alt";
 
   return (
     <NextLink

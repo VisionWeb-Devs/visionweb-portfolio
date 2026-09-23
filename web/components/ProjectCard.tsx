@@ -1,8 +1,9 @@
+// web/components/ProjectCard.tsx
 import Image from "next/image";
 import NextLink from "next/link";
-import type { ProjectView } from "@/types/view";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n";
+import type { ProjectView } from "@/types/view";
 import styles from "./Portfolio.module.css";
 
 type ProjectCardProps = {

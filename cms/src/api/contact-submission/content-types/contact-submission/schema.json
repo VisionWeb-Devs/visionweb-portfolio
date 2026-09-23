@@ -26,7 +26,12 @@
     },
     "projectType": {
       "type": "enumeration",
-      "enum": ["portfolio", "ecommerce", "custom", "other"],
+      "enum": [
+        "portfolio",
+        "ecommerce",
+        "custom",
+        "other"
+      ],
       "default": "other"
     },
     "budget": {
@@ -42,6 +47,10 @@
       "type": "boolean",
       "default": false,
       "required": true
+    },
+    "partner": {
+      "type": "string",
+      "maxLength": 50
     }
   }
 }

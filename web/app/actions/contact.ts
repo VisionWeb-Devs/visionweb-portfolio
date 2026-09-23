@@ -68,6 +68,14 @@ export async function submitContact(
   const message = String(formData.get("message") ?? "").trim();
   const company = String(formData.get("company") ?? "").trim();
   const budget = String(formData.get("budget") ?? "").trim();
+  // Attribution. Recorded from the hidden field rather than inferred, and
+  // sanitised to the subdomain charset so a forged value cannot inject
+  // anything downstream. An absent value means the main site.
+  const rawPartner = String(formData.get("partner") ?? "").trim().toLowerCase();
+  const partner = /^[a-z0-9]([a-z0-9-]{0,48}[a-z0-9])?$/.test(rawPartner)
+    ? rawPartner
+    : null;
+
   const rawType = String(formData.get("projectType") ?? "other");
   const projectType: ProjectType = PROJECT_TYPES.includes(rawType as ProjectType)
     ? (rawType as ProjectType)
@@ -102,6 +110,7 @@ export async function submitContact(
           company: company || undefined,
           budget: budget || undefined,
           projectType,
+          partner: partner ?? undefined,
           handled: false,
         },
       }),
