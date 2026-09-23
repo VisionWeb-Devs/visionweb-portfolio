@@ -37,7 +37,15 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
     target: container,
     offset: ["start start", "end end"],
   });
-  const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-100vw"]);
+  /**
+   * One panel for the intro plus one per project. The track and the travel
+   * distance are both derived from that count: the original hardcoded two
+   * panels, so a second project would have sat off-screen with no way to
+   * scroll to it.
+   */
+  const panelCount = 1 + projects.length;
+  const travelVw = (panelCount - 1) * 100;
+  const x = useTransform(scrollYProgress, [0, 1], ["0vw", `-${travelVw}vw`]);
 
   const wipe: Variants = {
     hidden: { clipPath: "inset(0 100% 0 0)" },
@@ -119,18 +127,14 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
     </div>
   );
 
-  const gallery = (
-    <div className="h-screen w-screen shrink-0 bg-surface-alt text-on-surface-alt flex items-end gap-24 xl:px-36 px-12 py-36">
-      {projects.map((project) => (
-        <ProjectCard
-          key={project.id}
-          project={project}
-          locale={locale}
-          messages={messages}
-        />
-      ))}
+  const gallery = projects.map((project) => (
+    <div
+      key={project.id}
+      className="h-screen w-screen shrink-0 bg-surface-alt text-on-surface-alt flex items-center justify-center xl:px-36 px-8 py-28"
+    >
+      <ProjectCard project={project} locale={locale} messages={messages} />
     </div>
-  );
+  ));
 
   // Reduced motion: no scroll hijacking, the panels simply stack.
   if (reduceMotion) {
@@ -147,10 +151,14 @@ const OurProjects = ({ projects, locale, messages }: OurProjectsProps) => {
       id="work"
       ref={container}
       data-nav-theme="dark"
-      className="relative h-[300vh] bg-surface-alt"
+      className="relative bg-surface-alt"
+      style={{ height: `${panelCount * 100}vh` }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        <motion.div style={{ x }} className="flex h-screen w-[200vw]">
+        <motion.div
+          style={{ x, width: `${panelCount * 100}vw` }}
+          className="flex h-screen"
+        >
           {intro}
           {gallery}
         </motion.div>

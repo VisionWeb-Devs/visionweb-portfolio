@@ -3,6 +3,7 @@ import path from "node:path";
 import type { Core } from "@strapi/strapi";
 import { seedPricing } from "./pricing";
 import { seedPartners } from "./partners";
+import { seedProjects } from "./projects";
 
 /**
  * Seeds the content that was previously hardcoded in the Next.js components.
@@ -12,25 +13,6 @@ import { seedPartners } from "./partners";
  * This exists so a fresh clone comes up with real content instead of an empty
  * admin, and so the migration off hardcoded arrays is recorded in git.
  */
-
-
-const projects = [
-  {
-    name: "Vision Shop",
-    slug: "vision-shop",
-    // Flagged internal: this carries VisionWeb's own brand and was described as
-    // a template, so presenting it as client work would be misleading.
-    isInternal: true,
-    client: "VisionWeb Devs",
-    industry: "E-commerce / Clothing",
-    order: 1,
-    description:
-      "This is the template for e-commerce website that sells clothing",
-    liveUrl: "https://visionshop.netlify.app/",
-    techStack: [],
-    features: [],
-  },
-];
 
 const teamMembers = [
   {
@@ -44,7 +26,6 @@ const teamMembers = [
     order: 2,
   },
 ];
-
 
 /**
  * STARTING CONTENT — REVIEW BEFORE LAUNCH.
@@ -141,34 +122,6 @@ const label = (values: string[]) => values.map((value) => ({ label: value }));
  * lets Strapi generate the responsive variants, and is why the 2.5 MB original
  * stops being what visitors download.
  */
-async function uploadLocalImage(
-  strapi: Core.Strapi,
-  absolutePath: string,
-  alternativeText: string,
-): Promise<number | null> {
-  if (!fs.existsSync(absolutePath)) {
-    strapi.log.warn(`[seed] image not found, skipping upload: ${absolutePath}`);
-    return null;
-  }
-
-  const { size } = fs.statSync(absolutePath);
-  const uploaded = await strapi
-    .plugin("upload")
-    .service("upload")
-    .upload({
-      data: { fileInfo: { alternativeText, caption: "" } },
-      files: [
-        {
-          filepath: absolutePath,
-          originalFilename: path.basename(absolutePath),
-          mimetype: "image/png",
-          size,
-        },
-      ],
-    });
-
-  return uploaded?.[0]?.id ?? null;
-}
 
 export async function seed({ strapi }: { strapi: Core.Strapi }) {
   // Each collection is handled explicitly rather than through a shared helper:
@@ -178,65 +131,7 @@ export async function seed({ strapi }: { strapi: Core.Strapi }) {
   await seedPricing({ strapi });
   await seedPartners({ strapi });
 
-  const projectDocs = strapi.documents("api::project.project");
-  // Resolved from the Strapi project root rather than __dirname: compiled code
-  // runs from cms/dist/src/seed, so a relative hop from __dirname differs
-  // between a TS run and a built one.
-  const screenshotPath = path.join(
-    process.cwd(), "..",
-    "web", "public", "assets", "projects", "visionshop_home.png",
-  );
-
-  if ((await projectDocs.count({})) === 0) {
-    const screenshotId = await uploadLocalImage(
-      strapi,
-      screenshotPath,
-      "Vision Shop homepage",
-    );
-
-    for (const { techStack, features, ...rest } of projects) {
-      await projectDocs.create({
-        data: {
-          ...rest,
-          techStack: label(techStack),
-          features: label(features),
-          ...(screenshotId ? { screenshots: [screenshotId] } : {}),
-        },
-        status: "published",
-      });
-    }
-    strapi.log.info(`[seed] projects: created ${projects.length} document(s).`);
-  } else {
-    // Backfill for databases seeded before the screenshot was uploaded. Only
-    // touches projects that have no screenshot at all, so it never overwrites
-    // an image chosen in the admin.
-    const existing = await projectDocs.findMany({
-      filters: { slug: "vision-shop" },
-      populate: ["screenshots"],
-      status: "published",
-    });
-    const project = existing?.[0] as
-      | { documentId: string; screenshots?: unknown[] }
-      | undefined;
-
-    if (project && !project.screenshots?.length) {
-      const screenshotId = await uploadLocalImage(
-        strapi,
-        screenshotPath,
-        "Vision Shop homepage",
-      );
-      if (screenshotId) {
-        await projectDocs.update({
-          documentId: project.documentId,
-          data: { screenshots: [screenshotId] },
-          status: "published",
-        });
-        strapi.log.info("[seed] projects: backfilled Vision Shop screenshot.");
-      }
-    } else {
-      strapi.log.info("[seed] projects: already populated, skipping.");
-    }
-  }
+  await seedProjects({ strapi });
 
   const processDocs = strapi.documents("api::process-step.process-step");
   if ((await processDocs.count({})) === 0) {
