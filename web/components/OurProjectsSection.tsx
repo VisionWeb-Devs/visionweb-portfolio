@@ -37,6 +37,7 @@ const OurProjectsSection = async ({
       id: project.documentId,
       slug: project.slug,
       name: project.name,
+      industry: project.industry,
       description: project.description,
       url: project.liveUrl,
       isInternal: project.isInternal,

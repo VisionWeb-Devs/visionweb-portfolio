@@ -14,7 +14,7 @@ type ProjectCardProps = {
 };
 
 const ProjectCard = ({ project, locale, messages, index = 0 }: ProjectCardProps) => {
-  const { slug, name, description, url, image } = project;
+  const { slug, name, industry, description, url, image, isInternal } = project;
   const href = `/${locale}/work/${slug}`;
 
   return (
@@ -34,8 +34,10 @@ const ProjectCard = ({ project, locale, messages, index = 0 }: ProjectCardProps)
       <div className={styles.projectInfo}>
         <span className={styles.projectIndex} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
         <div>
+          {industry && <span className="text-sm uppercase tracking-[0.18em] opacity-60">{industry}</span>}
           <h3><NextLink href={href}>{name}</NextLink></h3>
           <p>{description}</p>
+          {isInternal && <p className="text-sm">{messages.ownProduct}</p>}
           <div className={styles.projectLinks}>
             <NextLink href={href} className={styles.textLink}>{messages.caseStudy}<span aria-hidden="true">↗</span></NextLink>
             {url && <a href={url} target="_blank" rel="noopener noreferrer" className={styles.textLink}>{messages.visit}<span aria-hidden="true">↗</span></a>}

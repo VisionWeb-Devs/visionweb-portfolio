@@ -17,6 +17,7 @@ export type ProjectView = {
   id: string;
   slug: string;
   name: string;
+  industry: string | null;
   description: string;
   url: string | null;
   isInternal: boolean;
