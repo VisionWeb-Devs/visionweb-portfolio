@@ -24,6 +24,8 @@ const allowLocalImages =
 const mediaHostname = process.env.MEDIA_HOSTNAME;
 
 const nextConfig: NextConfig = {
+  // Self-contained server bundle for the Docker image.
+  output: "standalone",
   images: {
     remotePatterns: [
       ...(mediaHostname
